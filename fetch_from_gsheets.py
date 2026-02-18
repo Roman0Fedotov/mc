@@ -6,7 +6,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 # !!! ЗДЕСЬ ВСТАВЬТЕ ВАШ ID ТАБЛИЦЫ !!!
-SPREADSHEET_ID = "1R6M4jOVWCGpSHCvhKk_Pzs40zC2xKzZH"
+SPREADSHEET_ID = "1rZ8OgKe-lJWTASpfwLWwEC1sOdvFCeu1RmxeQ8v3NyQ"
 
 # Имена листов в том порядке, в каком они есть в таблице
 # Если ваши листы называются иначе, исправьте здесь
@@ -59,4 +59,5 @@ if __name__ == "__main__":
             fetch_sheet_to_csv(sheet_name)
         except Exception as e:
             print(f"Ошибка при обработке листа {sheet_name}: {e}")
+
             raise  # Если ошибка, прекращаем выполнение
