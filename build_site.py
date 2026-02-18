@@ -86,7 +86,7 @@ items = []
 for ms in manuscripts:
     items.append(
       f'<li>'
-      f'<a href="/manuscripts/{ms["id"]}.html">{ms["title"]}</a> '
+      f'<a href="manuscripts/{ms["id"]}.html">{ms["title"]}</a> '
       f'({ms.get("date","")}, {ms.get("location","")})'
       f'</li>'
 )
@@ -115,7 +115,7 @@ for ms in manuscripts:
     # --- breadcrumbs for manuscript ---
     breadcrumbs = (
         '<nav class="breadcrumbs">'
-        '<a href="/index.html">Home</a>'
+        '<a href="index.html">Home</a>'
         f' → {ms.get("title","")}'
         '</nav>'
     )
@@ -171,8 +171,8 @@ for sp in spells:
     # --- breadcrumbs for spell ---
     breadcrumbs = (
         '<nav class="breadcrumbs">'
-        '<a href="/index.html">Home</a> → '
-        '<a href="/categories/index.html">Categories</a>'
+        '<a href="index.html">Home</a> → '
+        '<a href="categories/index.html">Categories</a>'
     )
 
 # берём категории этого заклинания
@@ -229,8 +229,8 @@ for cat in categories:
 
     breadcrumbs = (
         '<nav class="breadcrumbs">'
-        '<a href="/index.html">Home</a> → '
-        '<a href="/categories/index.html">Categories</a>'
+        '<a href="index.html">Home</a> → '
+        '<a href="categories/index.html">Categories</a>'
     )
 
     for c in ancestors[:-1]:
@@ -360,3 +360,4 @@ inner = categories_index_template.replace("{{ tree }}", tree_html)
 html = render("Categories", inner)
 
 (SITE / "categories" / "index.html").write_text(html, encoding="utf-8")
+
