@@ -1,0 +1,47 @@
+name: Build site from Google Sheets
+
+on:
+  schedule:
+    # Запускать каждый день в 3 часа ночи UTC (можно изменить)
+    - cron: '0 3 * * *'
+  workflow_dispatch:        # возможность запуска вручную
+  push:
+    branches:
+      - main                # при пуше в main (или master) тоже запускаем
+    paths:
+      - 'templates/**'      # если меняются шаблоны, пересобрать
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Fetch data from Google Sheets
+        env:
+          GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        run: python fetch_from_gsheets.py
+
+      - name: Convert CSV to JSON
+        run: python build_data.py
+
+      - name: Build HTML site
+        run: python build_site.py
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
