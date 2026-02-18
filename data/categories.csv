@@ -1,0 +1,9 @@
+name;id;parent_id
+A;cat0001;
+B;cat0002;
+Introductory prayers;cat0003;cat0001
+Named anathemas;cat0004;cat0001
+Before rulers and magistrates;cat0005;cat0001
+Anti-weapon charms;cat0006;cat0001
+Medical charms;cat0007;cat0002
+Love charms;cat0008;cat0002

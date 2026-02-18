@@ -1,0 +1,137 @@
+[
+  {
+    "id": "sp0001",
+    "manuscript_id": "ms0001",
+    "page": "fol. 1v-2r",
+    "title_en": "Trisagion prayer",
+    "title_syr": "ܫܘܪܝܐ ܕܨܠܘܬܐ",
+    "translation": "Начало молитвы",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0002",
+    "manuscript_id": "ms0001",
+    "page": "fol. 2r",
+    "title_en": "Prayer of the shepherds",
+    "title_syr": "????? ???????",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0003",
+    "manuscript_id": "ms0001",
+    "page": "fol. 2rv",
+    "title_en": "Lord's prayer",
+    "title_syr": "",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0004",
+    "manuscript_id": "ms0001",
+    "page": "fol. 2v",
+    "title_en": "Prayer of Adam",
+    "title_syr": "",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0005",
+    "manuscript_id": "ms0001",
+    "page": "fol. 2v-3r",
+    "title_en": "Prayer of the angels",
+    "title_syr": "",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0006",
+    "manuscript_id": "ms0002",
+    "page": "fol. 2v-3v",
+    "title_en": "Trisagion prayer",
+    "title_syr": "ܫܘܪܝܐ ܕܨܠܘܬܐ",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0007",
+    "manuscript_id": "ms0002",
+    "page": "fol. 3v-4r",
+    "title_en": "Prayer of the shepherds",
+    "title_syr": "????? ???????",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0008",
+    "manuscript_id": "ms0002",
+    "page": "fol. 4rv",
+    "title_en": "Lord's prayer",
+    "title_syr": "ܨܠܘܬܐ ܕܡܪܢ",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0009",
+    "manuscript_id": "ms0002",
+    "page": "fol. 4v",
+    "title_en": "Prayer of Adam",
+    "title_syr": "ܨܠܘܬܐ ܕܐܕܡ",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0010",
+    "manuscript_id": "ms0002",
+    "page": "fol. 4v-5r",
+    "title_en": "Prayer of the angels",
+    "title_syr": "????? ???????",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0011",
+    "manuscript_id": "ms0003",
+    "page": "fol. 1v-2r",
+    "title_en": "Trisagion prayer",
+    "title_syr": "",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0012",
+    "manuscript_id": "ms0003",
+    "page": "fol. 2r",
+    "title_en": "Prayer of the shepherds",
+    "title_syr": "",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0013",
+    "manuscript_id": "ms0003",
+    "page": "fol. 2v-3r",
+    "title_en": "Lord's prayer",
+    "title_syr": "",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0014",
+    "manuscript_id": "ms0003",
+    "page": "fol. 3r",
+    "title_en": "Prayer of Adam",
+    "title_syr": "",
+    "translation": "",
+    "category": "Introductory prayers"
+  },
+  {
+    "id": "sp0015",
+    "manuscript_id": "ms0003",
+    "page": "fol. 3v-5v",
+    "title_en": "Anathema of the Gospel",
+    "title_syr": "ܐܘܢܓܠܝܘܢ ܩܕܝܫܐ ܕܡܪܢ ܝܫܘܥ ܡܫܝܚܐ ܟܪܘܙܘܬܐ ܕܝܘܚܢܢ",
+    "translation": "",
+    "category": "Named anathemas"
+  }
+]

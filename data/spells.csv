@@ -1,0 +1,16 @@
+id;manuscript_id;page;title_en;title_syr;translation;category
+sp0001;ms0001;fol. 1v-2r;Trisagion prayer;ܫܘܪܝܐ ܕܨܠܘܬܐ;Начало молитвы;Introductory prayers
+sp0002;ms0001;fol. 2r;Prayer of the shepherds;????? ???????;;Introductory prayers
+sp0003;ms0001;fol. 2rv;Lord's prayer;;;Introductory prayers
+sp0004;ms0001;fol. 2v;Prayer of Adam;;;Introductory prayers
+sp0005;ms0001;fol. 2v-3r;Prayer of the angels;;;Introductory prayers
+sp0006;ms0002;fol. 2v-3v;Trisagion prayer;ܫܘܪܝܐ ܕܨܠܘܬܐ;;Introductory prayers
+sp0007;ms0002;fol. 3v-4r;Prayer of the shepherds;????? ???????;;Introductory prayers
+sp0008;ms0002;fol. 4rv;Lord's prayer;ܨܠܘܬܐ ܕܡܪܢ;;Introductory prayers
+sp0009;ms0002;fol. 4v;Prayer of Adam;ܨܠܘܬܐ ܕܐܕܡ;;Introductory prayers
+sp0010;ms0002;fol. 4v-5r;Prayer of the angels;????? ???????;;Introductory prayers
+sp0011;ms0003;fol. 1v-2r;Trisagion prayer;;;Introductory prayers
+sp0012;ms0003;fol. 2r;Prayer of the shepherds;;;Introductory prayers
+sp0013;ms0003;fol. 2v-3r;Lord's prayer;;;Introductory prayers
+sp0014;ms0003;fol. 3r;Prayer of Adam;;;Introductory prayers
+sp0015;ms0003;fol. 3v-5v;Anathema of the Gospel;ܐܘܢܓܠܝܘܢ ܩܕܝܫܐ ܕܡܪܢ ܝܫܘܥ ܡܫܝܚܐ ܟܪܘܙܘܬܐ ܕܝܘܚܢܢ;;Named anathemas
