@@ -36,4 +36,5 @@ tables = [
 ]
 
 for table in tables:
+
     csv_to_json(table)
