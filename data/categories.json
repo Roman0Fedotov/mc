@@ -1,0 +1,42 @@
+[
+  {
+    "name": "A",
+    "id": "cat0001",
+    "parent_id": ""
+  },
+  {
+    "name": "B",
+    "id": "cat0002",
+    "parent_id": ""
+  },
+  {
+    "name": "Introductory prayers",
+    "id": "cat0003",
+    "parent_id": "cat0001"
+  },
+  {
+    "name": "Named anathemas",
+    "id": "cat0004",
+    "parent_id": "cat0001"
+  },
+  {
+    "name": "Before rulers and magistrates",
+    "id": "cat0005",
+    "parent_id": "cat0001"
+  },
+  {
+    "name": "Anti-weapon charms",
+    "id": "cat0006",
+    "parent_id": "cat0001"
+  },
+  {
+    "name": "Medical charms",
+    "id": "cat0007",
+    "parent_id": "cat0002"
+  },
+  {
+    "name": "Love charms",
+    "id": "cat0008",
+    "parent_id": "cat0002"
+  }
+]
