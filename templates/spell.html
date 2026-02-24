@@ -6,19 +6,19 @@
 <p><strong>Syriac:</strong> {{ title_syriac }}</p>
 <p><strong>Translation:</strong> {{ translation }}</p>
 <p><strong>Manuscript:</strong>
-    <a href="../manuscripts/{{ manuscript_id }}.html">
+    <a href="{{ base_path }}/manuscripts/{{ manuscript_id }}.html">
       {{ manuscript_siglum }}
     </a>
 </p>
 <p><strong>Page:</strong> {{ page }}</p>
 <p><strong>Scribe:</strong> {{ scribe }}</p>
 <p>
-  <a href="../manuscripts/{{ manuscript_id }}.html">
-    ← Back to this manuscript
+  <a href="{{ base_path }}/manuscripts/{{ manuscript_id }}.html">
+    &#8592; Back to this manuscript
   </a>
 </p>
 <p>
-    <a href="../index.html">
-      ← Back to manuscripts
+    <a href="{{ base_path }}/index.html">
+      &#8592; Back to manuscripts
     </a>
 </p>

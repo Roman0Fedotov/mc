@@ -11,6 +11,7 @@ __pycache__/
 
 # Local dumps / temp files
 project_dump.txt
+files_list.txt
 *.log
 
 # build output

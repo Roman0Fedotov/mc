@@ -1,20 +1,30 @@
 import json
 from pathlib import Path
+import os
 
+BASE_PATH = os.environ.get("BASE_PATH", "").strip()
+if BASE_PATH:
+    BASE_PATH = "/" + BASE_PATH.strip("/")
+else:
+    BASE_PATH = ""
 SITE = Path("site")
 DATA = SITE / "data"
 TEMPLATES = Path("templates")
+
+def root(path: str) -> str:
+    return f"{BASE_PATH}{path}"
 
 def load(name):
     return (TEMPLATES / name).read_text(encoding="utf-8")
 
 def render(title, content):
     base = load("base.html")
-    return (
+    html = (
         base
         .replace("{{ title }}", title)
         .replace("{{ content }}", content)
     )
+    return html.replace("{{ base_path }}", BASE_PATH)
 
 # 1. загружаем рукописи
 with open(DATA / "manuscripts.json", encoding="utf-8") as f:
@@ -84,12 +94,15 @@ def total_spell_count(cat_id):
 # 2. делаем список <li>
 items = []
 for ms in manuscripts:
+    ms_href = root(f"/manuscripts/{ms['id']}.html")
     items.append(
-      f'<li>'
-      f'<a href="/manuscripts/{ms["id"]}.html">{ms["title"]}</a> '
-      f'({ms.get("date","")}, {ms.get("location","")})'
-      f'</li>'
-)
+        f"<li>"
+        f'<a href="{ms_href}">{ms.get("title","")}</a>'
+        f' ({ms.get("date","")}, {ms.get("location","")})'
+        f"</li>"
+    )
+
+content = "<ul>\n" + "\n".join(items) + "\n</ul>"
 
 # 3. подставляем в шаблон
 inner = load("index.html").replace(
@@ -115,8 +128,8 @@ for ms in manuscripts:
     # --- breadcrumbs for manuscript ---
     breadcrumbs = (
         '<nav class="breadcrumbs">'
-        '<a href="/index.html">Home</a>'
-        f' → {ms.get("title","")}'
+        f'<a href="{root("/index.html")}">Home</a>'
+        f' &#8594; {ms.get("title","")}'
         '</nav>'
     )
     # 7.6 — заклинания этой рукописи
@@ -171,8 +184,8 @@ for sp in spells:
     # --- breadcrumbs for spell ---
     breadcrumbs = (
         '<nav class="breadcrumbs">'
-        '<a href="/index.html">Home</a> → '
-        '<a href="/categories/index.html">Categories</a>'
+        f'<a href="{root("/index.html")}">Home</a> &#8594; '
+        f'<a href="{root("/categories/index.html")}">Categories</a>'
     )
 
 # берём категории этого заклинания
@@ -181,9 +194,9 @@ for sp in spells:
         if main_cat:
             ancestors = category_ancestors(main_cat["id"])
             for c in ancestors:
-                breadcrumbs += f' → <a href="../categories/{c["id"]}.html">{c["name"]}</a>'
+                breadcrumbs += f' &#8594; <a href="../categories/{c["id"]}.html">{c["name"]}</a>'
 
-    breadcrumbs += f' → {sp.get("title_en","")}'
+    breadcrumbs += f' &#8594; {sp.get("title_en","")}'
     breadcrumbs += '</nav>'
 
     if cat_ids:
@@ -229,14 +242,14 @@ for cat in categories:
 
     breadcrumbs = (
         '<nav class="breadcrumbs">'
-        '<a href="/index.html">Home</a> → '
-        '<a href="/categories/index.html">Categories</a>'
+        f'<a href="{root("/index.html")}">Home</a> &#8594; '
+        f'<a href="{root("/categories/index.html")}">Categories</a>'
     )
 
     for c in ancestors[:-1]:
-        breadcrumbs += f' → <a href="{c["id"]}.html">{c["name"]}</a>'
+        breadcrumbs += f' &#8594; <a href="{c["id"]}.html">{c["name"]}</a>'
 
-    breadcrumbs += f' → {ancestors[-1]["name"]}'
+    breadcrumbs += f' &#8594; {ancestors[-1]["name"]}'
     breadcrumbs += '</nav>'
 
     # --- parent category ---
