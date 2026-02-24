@@ -1,0 +1,11 @@
+# VS Code
+.vscode/
+
+# Virtual env + python cache
+.venv/
+__pycache__/
+*.pyc
+
+# Local dumps / temp files
+project_dump.txt
+*.log
