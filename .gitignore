@@ -1,6 +1,9 @@
 # VS Code
 .vscode/
 
+# allow sharing build tasks
+!.vscode/tasks.json
+
 # Virtual env + python cache
 .venv/
 __pycache__/
