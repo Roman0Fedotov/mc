@@ -1,5 +1,15 @@
-<h2>Manuscripts</h2>
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Manuscripts</h1>
 
 <ul>
-{{ manuscripts }}
+  {% for ms in manuscripts %}
+    <li>
+      <a href="{{ root('/manuscripts/' ~ ms.id ~ '.html') }}">{{ ms.title }}</a>
+      ({{ ms.date|default('') }}, {{ ms.location|default('') }})
+    </li>
+  {% endfor %}
 </ul>
+
+{% endblock %}
