@@ -1,16 +1,70 @@
-id;manuscript_id;page;title_en;title_syr;translation;category
-sp0001;ms0001;fol. 1v-2r;Trisagion prayer;ܫܘܪܝܐ ܕܨܠܘܬܐ;Начало молитвы;Introductory prayers
-sp0002;ms0001;fol. 2r;Prayer of the shepherds;????? ???????;;Introductory prayers
-sp0003;ms0001;fol. 2rv;Lord's prayer;;;Introductory prayers
-sp0004;ms0001;fol. 2v;Prayer of Adam;;;Introductory prayers
-sp0005;ms0001;fol. 2v-3r;Prayer of the angels;;;Introductory prayers
-sp0006;ms0002;fol. 2v-3v;Trisagion prayer;ܫܘܪܝܐ ܕܨܠܘܬܐ;;Introductory prayers
-sp0007;ms0002;fol. 3v-4r;Prayer of the shepherds;????? ???????;;Introductory prayers
-sp0008;ms0002;fol. 4rv;Lord's prayer;ܨܠܘܬܐ ܕܡܪܢ;;Introductory prayers
-sp0009;ms0002;fol. 4v;Prayer of Adam;ܨܠܘܬܐ ܕܐܕܡ;;Introductory prayers
-sp0010;ms0002;fol. 4v-5r;Prayer of the angels;????? ???????;;Introductory prayers
-sp0011;ms0003;fol. 1v-2r;Trisagion prayer;;;Introductory prayers
-sp0012;ms0003;fol. 2r;Prayer of the shepherds;;;Introductory prayers
-sp0013;ms0003;fol. 2v-3r;Lord's prayer;;;Introductory prayers
-sp0014;ms0003;fol. 3r;Prayer of Adam;;;Introductory prayers
-sp0015;ms0003;fol. 3v-5v;Anathema of the Gospel;ܐܘܢܓܠܝܘܢ ܩܕܝܫܐ ܕܡܪܢ ܝܫܘܥ ܡܫܝܚܐ ܟܪܘܙܘܬܐ ܕܝܘܚܢܢ;;Named anathemas
+id,manuscript_id,page,title_en,title_syr,translation,category
+sp0001,ms0001,fol. 1v-2r,Trisagion prayer,ܫܘܪܝܐ ܕܨܠܘܬܐ,Начало молитвы,Introductory prayers
+sp0002,ms0001,fol. 2r,Prayer of the shepherds,,,Introductory prayers
+sp0003,ms0001,fol. 2rv,Lord’s prayer,,,Introductory prayers
+sp0004,ms0001,fol. 2v,Prayer of Adam,,,Introductory prayers
+sp0005,ms0001,fol. 2v-3r,Prayer of the angels,,,Introductory prayers
+sp0006,ms0002,fol. 2v-3v,Trisagion prayer,ܫܘܪܝܐ ܕܨܠܘܬܐ,,Introductory prayers
+sp0007,ms0002,fol. 3v-4r,Prayer of the shepherds,,,Introductory prayers
+sp0008,ms0002,fol. 4rv,Lord’s prayer,ܨܠܘܬܐ ܕܡܪܢ,,Introductory prayers
+sp0009,ms0002,fol. 4v,Prayer of Adam,ܨܠܘܬܐ ܕܐܕܡ,,Introductory prayers
+sp0010,ms0002,fol. 4v-5r,Prayer of the angels,,,Introductory prayers
+sp0011,ms0003,fol. 1v-2r,Trisagion prayer,,,Introductory prayers
+sp0012,ms0003,fol. 2r,Prayer of the shepherds,,,Introductory prayers
+sp0013,ms0003,fol. 2v-3r,Lord’s prayer,,,Introductory prayers
+sp0014,ms0003,fol. 3r,Prayer of Adam,,,Introductory prayers
+sp0015,ms0003,fol. 3v-5v,Anathema of the Gospel,ܐܘܢܓܠܝܘܢ ܩܕܝܫܐ ܕܡܪܢ ܝܫܘܥ ܡܫܝܚܐ ܟܪܘܙܘܬܐ ܕܝܘܚܢܢ,,Named anathemas
+sp0016,ms0004,f. 1v-2r,Incipit,,,Молитвы
+sp0017,ms0004,f. 2r-v,Gloria in excelsis,,,Молитвы
+sp0018,ms0004,f. 2v-3r,Pater noster,,,Молитвы
+sp0019,ms0004,f. 3r,Prayer of Adam,,,Молитвы
+sp0020,ms0004,f. 3r-v,Prayer of the angels,,,Молитвы
+sp0021,ms0004,-,"Is 8:9–10, Ps 91:5–14, Ps 121",,,Молитвы
+sp0022,ms0004,f. 5v–9r,"The Holy Gospel of Our Lord Jesus Christ, the preaching of John",,,Защитные/экзорцизм
+sp0023,ms0004,f. 9r–11v,"The Holy Gospel of Our Lord Jesus Christ, the preaching of Matthew",,,Защитные/экзорцизм
+sp0024,ms0004,f. 11v–12v,For treatment (or ‘help’),,,Защитные/экзорцизм
+sp0025,ms0004,f. 13r–17r,"The Charm of Cyprianus, glorious martyr, for every pain and sickness",,,Защитные/экзорцизм
+sp0026,ms0004,-,The Charm of Mar ‘Abdisho’ against the demon [called] Teb‘a that persecutes women and children,,,Защитные/экзорцизм
+sp0027,ms0004,f. 21r–25r,The Charm of St. George for fear and tremble among men,,,Защитные/экзорцизм
+sp0028,ms0004,f. 25r–29v,"The Charm of king Solomon, son of David, against the devils and hardships of men",,,Защитные/экзорцизм
+sp0029,ms0004,f. 30r–34v,The Charm of Good blessed Mary for every pain and sickness,,,Защитные/экзорцизм
+sp0030,ms0004,f. 34v–37r,"The Charm of Simeon the apostle against Teb‘a, the killer of women and children",,,Защитные/экзорцизм
+sp0031,ms0004,f. 37r–38r,The Charm of Jacob against lunacy,,,Лечебные
+sp0032,ms0004,f. 38v–39r,Against any fever,,,Лечебные
+sp0033,ms0004,f. 39r-v,For milk that starts to spoil,,,Хозяйственно-бытовые
+sp0034,ms0004,f. 39v,For the one who eats and does not get satiated,,,Лечебные
+sp0035,ms0004,f. 40r-v,"Binding of the scorpions, snakes and other small animals",,,Человек и природа
+sp0036,ms0004,f. 41r,The chapter on the thieves,,,Гадательные тексты
+sp0037,ms0004,f. 41r–42v,For merchandise,,,Человек и общество
+sp0038,ms0004,f. 42v–43r,For drunkenness,,,Лечебные
+sp0039,ms0004,f. 43r-44r,For peace among the men: in the family or between the brothers,,,Человек и общество
+sp0040,ms0004,f. 44r,For [that which is] under the child’s tongue,,,Лечебные
+sp0041,ms0004,f. 44v–45r,"Against the spirit[, that seizes] the heart",,,Лечебные
+sp0042,ms0004,f. 45r,For boils,,,Лечебные
+sp0043,ms0004,f. 45v,Before the emir,,,Человек и общество
+sp0044,ms0004,f. 46r-v,For children not to cry,,,Лечебные
+sp0045,ms0004,f. 46v-47r,Binding of ṬWṬMˀ,,,Лечебные
+sp0046,ms0004,f. 47r-v,For love,,,Человек и общество
+sp0047,ms0004,f. 47v,Binding the wolf from off cattle,,,Хозяйственно-бытовые
+sp0048,ms0004,f. 48r,For the journey and for merchandise,,,Человек и общество
+sp0049,ms0004,f. 48r-49r,The Charm of Rabban Hormizd against the mad dog and all the dangerous animals,,,Человек и природа
+sp0050,ms0004,f. 49r-v,For the one having aches in the spleen,,,Лечебные
+sp0051,ms0004,f. 49v–51r,For the pestilence among sheep,,,Защитные/экзорцизм
+sp0052,ms0004,f. 51r-52r,For the ox who avoids the yoke and [for it] not to sleep,,,Хозяйственно-бытовые
+sp0053,ms0004,f. 52r–v,Protective charm (lit.: ‘the fence’) for the grooms,,,Защитные/экзорцизм
+sp0054,ms0004,f. 53r–54r,Against the Evil Eye,,,Защитные/экзорцизм
+sp0055,ms0004,f. 54r–56v,"Binding of the arrows, the swords and other implements of war",,,Человек и общество
+sp0056,ms0004,f. 56v–59r,Before the oppressors and the governers,,,Человек и общество
+sp0057,ms0004,f. 59r–60v,Binding of tongues,,,Человек и общество
+sp0058,ms0004,f. 60v–63r,The Charm of St. Paut,,,Человек и общество
+sp0059,ms0004,f. 63v–64v,Loosening of the hunt,,,Человек и природа
+sp0060,ms0004,f. 64v–66r,Against the Evil Eye,,,Защитные/экзорцизм
+sp0061,ms0004,f. 66r,For blood [coming] from the nostrils,,,Лечебные
+sp0062,ms0004,f. 66v–69r,"[Method of] reckoning concerning sick persons, from what source the sickness comes upon them",,,Гадательные тексты
+sp0063,ms0004,f. 69r,The the one having aches in the spleen,,,Лечебные
+sp0064,ms0004,f. 69v,Closing section,,,Паратекст
+sp0065,ms0004,f. 70r–v,Colophon,,,Паратекст
+sp0066,ms0004,f. 71r–v,Names on the ring of king Solomon,,,Человек и общество
+sp0067,,,,,,
+sp0068,,,,,,
+sp0069,,,,,,
