@@ -1,34 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <title>{{ title }}</title>
-  <link rel="stylesheet" href="{{ base_path }}/style.css">
-<style>
-.breadcrumbs {
-  font-size: 0.9em;
-  margin-bottom: 1em;
-  color: #555;
-}
-.breadcrumbs a {
-  text-decoration: none;
-}
-.breadcrumbs a:hover {
-  text-decoration: underline;
-}
-</style>
+  <link rel="stylesheet" href="{{ root('/style.css') }}">
 </head>
 <body>
 
-<h1><a href="{{ base_path }}/index.html">Manuscript Corpus</a></h1>
+<h1><a href="{{ root('/index.html') }}">Manuscript Corpus</a></h1>
 <nav>
-  <a href="{{ base_path }}/index.html">Manuscripts</a> |
-  <a href="{{ base_path }}/categories/index.html">Categories</a>
+  <a href="{{ root('/index.html') }}">Manuscripts</a> |
+  <a href="{{ root('/categories/index.html') }}">Categories</a>
 </nav>
 
 <hr>
 
-{{ content }}
+{% block content %}{% endblock %}
 
 </body>
 </html>

@@ -1,7 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
 <h1>Categories</h1>
 
-{{ tree }}
+{{ tree | safe }}
 
-<p>
-  <a href="{{ base_path }}/index.html">&#8592; Back to manuscripts</a>
-</p>
+<p><a href="{{ root('/index.html') }}">&#8592; Back to manuscripts</a></p>
+
+{% endblock %}

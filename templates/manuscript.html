@@ -1,19 +1,31 @@
-{{ breadcrumbs }}
-<h2>{{ title }}</h2>
+{% extends "base.html" %}
+{% block content %}
 
-<p><strong>Siglum:</strong> {{ siglum }}</p>
-<p><strong>Location:</strong> {{ location }}</p>
-<p><strong>Date:</strong> {{ date }}</p>
-<p><strong>Format:</strong> {{ format }}</p>
-<p><strong>Number of texts:</strong> {{ n_texts }}</p>
+{{ breadcrumbs | safe }}
+
+<h2>{{ ms.title }}</h2>
+
+<p><strong>Siglum:</strong> {{ ms.siglum }}</p>
+<p><strong>Location:</strong> {{ ms.location }}</p>
+<p><strong>Date:</strong> {{ ms.date }}</p>
+<p><strong>Format:</strong> {{ ms.format }}</p>
+<p><strong>Number of texts:</strong> {{ ms["N of texts"] }}</p>
 
 <h3>Bibliography</h3>
-<p>{{ bibliography }}</p>
-<h3>Spells</h3>
-{{ spells }}
+<p>{{ ms.bibliography }}</p>
 
-<p>
-  <a href="{{ base_path }}/index.html">
-    &#8592; Back to manuscripts
-  </a>
-</p>
+<h3>Spells</h3>
+{% if related_spells %}
+  <ul>
+    {% for sp in related_spells %}
+      <li>
+        <a href="{{ root('/spells/' ~ sp.id ~ '.html') }}">{{ sp.title_en }}</a>
+        ({{ sp.page }})
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No spells recorded.</p>
+{% endif %}
+
+{% endblock %}

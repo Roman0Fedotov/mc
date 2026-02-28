@@ -1,24 +1,36 @@
-{{ breadcrumbs }}
-<h2>{{ title_english }}</h2>
-<h3>Categories:</h3>
-{{ categories }}
+{% extends "base.html" %}
+{% block content %}
 
-<p><strong>Syriac:</strong> {{ title_syriac }}</p>
-<p><strong>Translation:</strong> {{ translation }}</p>
+{{ breadcrumbs | safe }}
+
+<h2>{{ sp.title_en }}</h2>
+
+<h3>Categories:</h3>
+{% if categories %}
+  <ul>
+    {% for c in categories %}
+      <li>
+        <a href="{{ root('/categories/' ~ c.id ~ '.html') }}">{{ c.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No categories assigned.</p>
+{% endif %}
+
+<p><strong>Syriac:</strong> {{ sp.title_syr }}</p>
+<p><strong>Translation:</strong> {{ sp.translation }}</p>
+
 <p><strong>Manuscript:</strong>
-    <a href="{{ base_path }}/manuscripts/{{ manuscript_id }}.html">
-      {{ manuscript_siglum }}
-    </a>
-</p>
-<p><strong>Page:</strong> {{ page }}</p>
-<p><strong>Scribe:</strong> {{ scribe }}</p>
-<p>
-  <a href="{{ base_path }}/manuscripts/{{ manuscript_id }}.html">
-    &#8592; Back to this manuscript
+  <a href="{{ root('/manuscripts/' ~ sp.manuscript_id ~ '.html') }}">
+    {{ ms.siglum }}
   </a>
 </p>
-<p>
-    <a href="{{ base_path }}/index.html">
-      &#8592; Back to manuscripts
-    </a>
-</p>
+
+<p><strong>Page:</strong> {{ sp.page }}</p>
+<p><strong>Scribe:</strong> {{ sp.scribe }}</p>
+
+<p><a href="{{ root('/manuscripts/' ~ sp.manuscript_id ~ '.html') }}">← Back to this manuscript</a></p>
+<p><a href="{{ root('/index.html') }}">← Back to manuscripts</a></p>
+
+{% endblock %}

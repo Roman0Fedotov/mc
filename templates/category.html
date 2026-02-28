@@ -1,15 +1,17 @@
-{{ breadcrumbs }}
+{% extends "base.html" %}
+{% block content %}
+
+{{ breadcrumbs | safe }}
 <h1>{{ category_name }}</h1>
 
-
-{{ parent }}
+{{ parent | safe }}
 
 <h3>Subcategories</h3>
-{{ subcategories }}
+{{ subcategories | safe }}
 
 <h3>Spells in this category</h3>
-{{ spells }}
+{{ spells | safe }}
 
-<p>
-  <a href="{{ base_path }}/index.html">&#8592; Back to manuscripts</a>
-</p>
+<p><a href="{{ root('/index.html') }}">&#8592; Back to manuscripts</a></p>
+
+{% endblock %}
