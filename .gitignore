@@ -9,6 +9,9 @@
 __pycache__/
 *.pyc
 
+#.py
+build_site_old.py
+
 # Local dumps / temp files
 project_dump.txt
 files_list.txt

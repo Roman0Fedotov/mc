@@ -51,7 +51,7 @@ jobs:
       - name: Build HTML site
         env:
           BASE_PATH: "mc"
-        run: python scripts/build_site.py
+        run: python scripts/build_site.py --clean --strict
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
