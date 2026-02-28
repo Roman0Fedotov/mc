@@ -1,18 +1,9 @@
 import json
 from pathlib import Path
-import os
-from templating import make_env
+from templating import make_env, root
 
-BASE_PATH = os.environ.get("BASE_PATH", "").strip()
-if BASE_PATH:
-    BASE_PATH = "/" + BASE_PATH.strip("/")
-else:
-    BASE_PATH = ""
 SITE = Path("site")
 DATA = SITE / "data"
-
-def root(path: str) -> str:
-    return f"{BASE_PATH}{path}"
 
 # 1. загружаем рукописи
 with open(DATA / "manuscripts.json", encoding="utf-8") as f:
@@ -186,7 +177,7 @@ for cat in categories:
     )
 
     for c in ancestors[:-1]:
-        breadcrumbs += f' &#8594; <a href="{c["id"]}.html">{c["name"]}</a>'
+        breadcrumbs += f' &#8594; <a href="{root("/categories/" + c["id"] + ".html")}">{c["name"]}</a>'
 
     breadcrumbs += f' &#8594; {ancestors[-1]["name"]}'
     breadcrumbs += '</nav>'
@@ -232,8 +223,8 @@ for cat in categories:
             for sp in entries:
                 ms = manuscript_by_id.get(sp["manuscript_id"], {})
                 refs.append(
-                    f'<a href="../manuscripts/{sp["manuscript_id"]}.html">{ms.get("siglum","")}</a> '
-                    f'<a href="../spells/{sp["id"]}.html">{sp.get("page","")}</a>'
+                    f'<a href="{root("/manuscripts/" + sp["manuscript_id"] + ".html")}">{ms.get("siglum","")}</a> '
+                    f'<a href="{root("/spells/" + sp["id"] + ".html")}">{sp.get("page","")}</a>'
                 )
 
             blocks.append(
