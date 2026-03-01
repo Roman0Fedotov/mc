@@ -1,4 +1,5 @@
 from functools import lru_cache
+from templating import root
 
 def build_category_graph(categories):
     category_by_id = {c["id"]: c for c in categories}
@@ -44,3 +45,13 @@ def make_total_spell_count(children_by_parent, spell_count_by_category):
         return total
 
     return total_spell_count
+
+
+def render_breadcrumbs(items):
+    parts = []
+    for label, href in items:
+        if href:
+            parts.append(f'<a href="{root(href)}">{label}</a>')
+        else:
+            parts.append(label)
+    return '<nav class="breadcrumbs">' + " &#8594; ".join(parts) + "</nav>"

@@ -1,15 +1,40 @@
+{% from "_macros.html" import alpha_filter %}
 {% extends "base.html" %}
 {% block content %}
 
 <h1>Manuscripts</h1>
+<p id="ms-count">{{ manuscripts|length }} manuscripts</p>
 
-<ul>
-  {% for ms in manuscripts %}
-    <li>
-      <a href="{{ root('/manuscripts/' ~ ms.id ~ '.html') }}">{{ ms.title }}</a>
-      ({{ ms.date|default('') }}, {{ ms.location|default('') }})
-    </li>
+<p id="alpha-filter">
+  <a href="#" data-letter="ALL">ALL</a>
+  {% for L in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+    <a href="#" data-letter="{{ L }}">{{ L }}</a>
   {% endfor %}
-</ul>
+</p>
+
+<table id="ms-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Siglum</th>
+      <th>Location</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for ms in manuscripts %}
+      <tr data-letter="{{ (ms.title[:1] if ms.title else '#')|upper }}">
+        <td>
+          <a href="{{ root('/manuscripts/' ~ ms.id ~ '.html') }}">{{ ms.title }}</a>
+        </td>
+        <td>{{ ms.siglum }}</td>
+        <td>{{ ms.location }}</td>
+        <td>{{ ms.date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{{ alpha_filter("alpha-filter", "ms-count", "#ms-table tbody tr", "data-letter", "manuscript", "manuscripts") }}
 
 {% endblock %}

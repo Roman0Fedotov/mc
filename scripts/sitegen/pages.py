@@ -1,5 +1,6 @@
 from pathlib import Path
 from templating import root
+from sitegen.services import render_breadcrumbs
 
 def build_index(site_dir: Path, tpl_index, manuscripts):
     html = tpl_index.render(
@@ -14,12 +15,10 @@ def build_manuscripts(site_dir: Path, tpl_ms, manuscripts, spells_by_ms_id):
     out_dir.mkdir(exist_ok=True)
 
     for ms in manuscripts:
-        breadcrumbs = (
-            '<nav class="breadcrumbs">'
-            f'<a href="{root("/index.html")}">Home</a>'
-            f' &#8594; {ms.get("title","")}'
-            '</nav>'
-        )
+        breadcrumbs = render_breadcrumbs([
+            ("Home", "/index.html"),
+            (ms.get("title", ""), None),
+        ])
 
         related_spells = spells_by_ms_id.get(ms["id"], [])
 
@@ -40,22 +39,19 @@ def build_spells(site_dir: Path, tpl_spell, spells, manuscript_by_id, cats_by_sp
         ms = manuscript_by_id.get(sp.get("manuscript_id"), {})
         cat_ids = cats_by_spell_id.get(sp["id"], [])
 
-        breadcrumbs = (
-            '<nav class="breadcrumbs">'
-            f'<a href="{root("/index.html")}">Home</a> &#8594; '
-            f'<a href="{root("/categories/index.html")}">Categories</a>'
-        )
+        crumbs = [
+            ("Home", "/index.html"),
+            ("Categories", "/categories/index.html"),
+        ]
 
         if cat_ids:
             main_cat = category_by_id.get(cat_ids[0])
             if main_cat:
                 for c in category_ancestors(main_cat["id"]):
-                    breadcrumbs += (
-                        f' &#8594; <a href="{root("/categories/" + c["id"] + ".html")}">{c["name"]}</a>'
-                    )
+                    crumbs.append((c["name"], f'/categories/{c["id"]}.html'))
 
-        breadcrumbs += f' &#8594; {sp.get("title_en","")}'
-        breadcrumbs += '</nav>'
+        crumbs.append((sp.get("title_en", ""), None))
+        breadcrumbs = render_breadcrumbs(crumbs)
 
         categories_list = []
         for cid in cat_ids:
@@ -72,6 +68,77 @@ def build_spells(site_dir: Path, tpl_spell, spells, manuscript_by_id, cats_by_sp
         )
         (out_dir / f"{sp['id']}.html").write_text(html, encoding="utf-8")
 
+
+def build_spells_index(site_dir: Path, tpl_spells_index, spells, manuscript_by_id):
+    out_dir = site_dir / "spells"
+    out_dir.mkdir(exist_ok=True)
+
+    def display_title(sp):
+        return (sp.get("title_en") or "Untitled").strip() or "Untitled"
+
+    def norm_title(t: str) -> str:
+        return " ".join(t.split()).lower()
+
+
+    def sort_key(sp):
+        ms = manuscript_by_id.get(sp.get("manuscript_id"), {})
+        return (
+            norm_title(display_title(sp)),
+            (ms.get("siglum") or "").lower(),
+            str(sp.get("page") or ""),
+            sp.get("id") or "",
+        )
+
+    grouped = {}
+    order = [] 
+
+    for sp in sorted(spells, key=sort_key):
+        t = display_title(sp)
+        nt = norm_title(t)
+
+        if nt not in grouped:
+            grouped[nt] = {"title": t, "refs": []}
+            order.append(nt)
+
+        ms_id = sp.get("manuscript_id") or ""
+        ms = manuscript_by_id.get(ms_id, {})
+
+        grouped[nt]["refs"].append({
+            "spell_id": sp.get("id") or "",
+            "manuscript_id": ms_id,
+            "siglum": ms.get("siglum", ""),
+            "page": sp.get("page", ""),
+        })
+
+    rows = []
+    for nt in order:
+        title = grouped[nt]["title"]
+
+        seen = set()
+        refs = []
+        for r in grouped[nt]["refs"]:
+            key = (r["manuscript_id"], str(r["page"]), r["spell_id"])
+            if key in seen:
+                continue
+            seen.add(key)
+            refs.append(r)
+
+        refs.sort(key=lambda r: (
+            (r.get("siglum") or "").lower(),
+            str(r.get("page") or ""),
+            r.get("spell_id") or "",
+        ))
+
+        rows.append({
+            "title_en": title,
+            "refs": refs,
+        })
+
+    html = tpl_spells_index.render(
+        title="Spells",
+        spells=rows,
+    )
+    (out_dir / "index.html").write_text(html, encoding="utf-8")
 
 def build_categories(
     site_dir: Path,
@@ -93,15 +160,14 @@ def build_categories(
         count = total_spell_count(cat_id)
 
         ancestors = category_ancestors(cat_id)
-        breadcrumbs = (
-            '<nav class="breadcrumbs">'
-            f'<a href="{root("/index.html")}">Home</a> &#8594; '
-            f'<a href="{root("/categories/index.html")}">Categories</a>'
-        )
+        crumbs = [
+            ("Home", "/index.html"),
+            ("Categories", "/categories/index.html"),
+        ]
         for c in ancestors[:-1]:
-            breadcrumbs += f' &#8594; <a href="{root("/categories/" + c["id"] + ".html")}">{c["name"]}</a>'
-        breadcrumbs += f' &#8594; {ancestors[-1]["name"]}'
-        breadcrumbs += '</nav>'
+            crumbs.append((c["name"], f'/categories/{c["id"]}.html'))
+        crumbs.append((ancestors[-1]["name"], None))
+        breadcrumbs = render_breadcrumbs(crumbs)
 
         pid = (cat.get("parent_id") or "").strip() or None
         parent = category_by_id.get(pid)

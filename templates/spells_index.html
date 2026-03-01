@@ -1,0 +1,59 @@
+{% from "_macros.html" import alpha_filter %}
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Spells</h1>
+<p id="sp-count">{{ spells|length }} spell titles</p>
+
+<p id="sp-alpha-filter">
+  <a href="#" data-letter="ALL">ALL</a>
+  {% for L in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+    <a href="#" data-letter="{{ L }}">{{ L }}</a>
+  {% endfor %}
+  <a href="#" data-letter="OTHER">OTHER</a>
+</p>
+
+<table id="sp-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Occurrences</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sp in spells %}
+      {% set first = (sp.title_en[:1] if sp.title_en else '#')|upper %}
+      <tr data-letter="{{ first if first in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' else 'OTHER' }}">
+        <td>{{ sp.title_en or 'Untitled' }}</td>
+
+        <td>
+          <table>
+            <tbody>
+              {% for r in sp.refs %}
+                {% set p = (r.page or '?')|trim %}
+                {% set pl = p|lower %}
+                {% if p != '?' and not pl.startswith('fol') %}
+                  {% set p = 'fol. ' ~ p %}
+                {% endif %}
+
+                <tr>
+                  <td>
+                    <a href="{{ root('/manuscripts/' ~ r.manuscript_id ~ '.html') }}">{{ r.siglum }}</a>
+                  </td>
+                  <td>
+                    <a href="{{ root('/spells/' ~ r.spell_id ~ '.html') }}">{{ p }}</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </td>
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{{ alpha_filter("sp-alpha-filter", "sp-count", "#sp-table tbody > tr", "data-letter", "spell title", "spell titles", true) }}
+
+{% endblock %}

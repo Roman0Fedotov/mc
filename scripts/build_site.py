@@ -11,6 +11,7 @@ from sitegen.pages import (
     build_index,
     build_manuscripts,
     build_spells,
+    build_spells_index,
     build_categories,
     build_categories_index,
 )
@@ -71,6 +72,7 @@ def main() -> None:
 
     env = make_env()
     tpl_index = env.get_template("index.html")
+    tpl_spells_index = env.get_template("spells_index.html")
     tpl_ms = env.get_template("manuscript.html")
     tpl_spell = env.get_template("spell.html")
     tpl_cat = env.get_template("category.html")
@@ -87,6 +89,7 @@ def main() -> None:
         category_by_id,
         category_ancestors,
     )
+    build_spells_index(SITE, tpl_spells_index, spells, idx["manuscript_by_id"])
     build_categories(
         SITE,
         tpl_cat,

@@ -1,0 +1,37 @@
+{% macro alpha_filter(container_id, count_id, row_selector, attr_name, label_singular, label_plural, include_other=false) %}
+<script>
+(function () {
+  const root = document.getElementById({{ container_id|tojson }});
+  const countEl = document.getElementById({{ count_id|tojson }});
+
+  // Берём только те элементы, у которых реально есть attr_name (например data-letter)
+  const rows = Array.from(document.querySelectorAll({{ row_selector|tojson }}))
+    .filter(r => r.hasAttribute({{ attr_name|tojson }}));
+
+  const includeOther = {{ include_other|tojson }};
+
+  function apply(letter) {
+    let visible = 0;
+
+    rows.forEach(r => {
+      const L = (r.getAttribute({{ attr_name|tojson }}) || (includeOther ? "OTHER" : "#"));
+      const show = (letter === "ALL") ? true : (L === letter);
+      r.style.display = show ? "" : "none";
+      if (show) visible++;
+    });
+
+    const noun = (visible === 1) ? {{ label_singular|tojson }} : {{ label_plural|tojson }};
+    countEl.textContent = visible + " " + noun + (letter === "ALL" ? "" : (" (" + letter + ")"));
+  }
+
+  root.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-letter]");
+    if (!a) return;
+    e.preventDefault();
+    apply(a.getAttribute("data-letter"));
+  });
+
+  apply("ALL");
+})();
+</script>
+{% endmacro %}
