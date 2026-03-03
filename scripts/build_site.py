@@ -64,7 +64,8 @@ def main() -> None:
 
     if args.clean:
         clean_site(SITE)
-        copy_assets(SITE)
+    
+    copy_assets(SITE)
 
     manuscripts, spells, categories, spell_categories = load_all()
 

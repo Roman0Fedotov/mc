@@ -52,6 +52,7 @@ jobs:
       - name: Build HTML site
         env:
           BASE_PATH: "mc"
+          CACHE_BUST: ${{ github.sha }}
         run: python scripts/build_site.py --clean --strict
 
       - name: Upload Pages artifact

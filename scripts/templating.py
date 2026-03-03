@@ -6,6 +6,7 @@ if BASE_PATH:
     BASE_PATH = "/" + BASE_PATH.strip("/")
 else:
     BASE_PATH = ""
+CACHE_BUST = os.environ.get("CACHE_BUST", "").strip()
 
 def root(path: str) -> str:
     return f"{BASE_PATH}{path}"
@@ -16,5 +17,6 @@ def make_env():
         autoescape=select_autoescape(["html", "xml"]),
     )
     env.globals["base_path"] = BASE_PATH
+    env.globals["cache_bust"] = CACHE_BUST
     env.globals["root"] = root
     return env
