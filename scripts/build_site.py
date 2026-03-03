@@ -18,6 +18,7 @@ from sitegen.pages import (
 from sitegen.validate import validate_data
 
 SITE = Path("site")
+ASSETS = Path("assets")
 
 
 def clean_site(site_dir: Path) -> None:
@@ -30,6 +31,18 @@ def clean_site(site_dir: Path) -> None:
         pass
 
 
+def copy_assets(site_dir: Path) -> None:
+    site_dir.mkdir(parents=True, exist_ok=True)
+
+    src = ASSETS / "style.css"
+    dst = site_dir / "style.css"
+
+    if not src.exists():
+        raise SystemExit(f"Missing stylesheet: {src}. Put your CSS there.")
+
+    shutil.copy2(src, dst)
+
+    
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build static site from JSON data.")
     parser.add_argument(
@@ -51,6 +64,7 @@ def main() -> None:
 
     if args.clean:
         clean_site(SITE)
+        copy_assets(SITE)
 
     manuscripts, spells, categories, spell_categories = load_all()
 

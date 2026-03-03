@@ -10,6 +10,7 @@ on:
       - "data/**"
       - "requirements.txt"
       - "fetch_from_gsheets.py"
+      - "assets/**"
       - ".github/workflows/pages.yml"
   schedule:
     - cron: "0 3 * * *"
