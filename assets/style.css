@@ -297,3 +297,64 @@ footer {
     max-width: 28ch;
     }
 }
+
+/* === Spells pagination controls === */
+.list-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5rem 0 1rem 0;
+}
+
+.per-page {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.per-page select {
+    padding: 0.35rem 0.55rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.pager {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+    margin: 0.75rem 0 1rem 0;
+}
+
+.pager a {
+    display: inline-block;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    color: #2980b9;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.pager a:hover { background: #ecf0f1; }
+
+.pager a.active {
+    background: #3498db;
+    border-color: #3498db;
+    color: #fff;
+    pointer-events: none;
+}
+
+.pager a.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pager .ellipsis {
+    padding: 0 0.25rem;
+    color: #7f8c8d;
+}

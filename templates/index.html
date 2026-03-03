@@ -1,4 +1,3 @@
-{% from "_macros.html" import alpha_filter %}
 {% extends "base.html" %}
 {% block content %}
 
@@ -35,6 +34,6 @@
   </tbody>
 </table>
 
-{{ alpha_filter("alpha-filter", "ms-count", "#ms-table tbody tr", "data-letter", "manuscript", "manuscripts") }}
+<script src="{{ root('/manuscripts_index.js') }}{% if cache_bust %}?v={{ cache_bust }}{% endif %}" defer></script>
 
 {% endblock %}

@@ -34,15 +34,15 @@ def clean_site(site_dir: Path) -> None:
 def copy_assets(site_dir: Path) -> None:
     site_dir.mkdir(parents=True, exist_ok=True)
 
-    src = ASSETS / "style.css"
-    dst = site_dir / "style.css"
+    css = ASSETS / "style.css"
+    if not css.exists():
+        raise SystemExit(f"Missing stylesheet: {css}. Put your CSS there.")
 
-    if not src.exists():
-        raise SystemExit(f"Missing stylesheet: {src}. Put your CSS there.")
+    for p in ASSETS.iterdir():
+        if p.is_file():
+            shutil.copy2(p, site_dir / p.name)
 
-    shutil.copy2(src, dst)
 
-    
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build static site from JSON data.")
     parser.add_argument(
