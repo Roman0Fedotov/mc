@@ -17,6 +17,7 @@ def build_manuscripts(site_dir: Path, tpl_ms, manuscripts, spells_by_ms_id):
     for ms in manuscripts:
         breadcrumbs = render_breadcrumbs([
             ("Home", "/index.html"),
+            ("Manuscripts", "/index.html"),
             (ms.get("title", ""), None),
         ])
 
@@ -41,16 +42,9 @@ def build_spells(site_dir: Path, tpl_spell, spells, manuscript_by_id, cats_by_sp
 
         crumbs = [
             ("Home", "/index.html"),
-            ("Categories", "/categories/index.html"),
+            ("Spells", "/spells/index.html"),
+            (sp.get("title_en", ""), None),
         ]
-
-        if cat_ids:
-            main_cat = category_by_id.get(cat_ids[0])
-            if main_cat:
-                for c in category_ancestors(main_cat["id"]):
-                    crumbs.append((c["name"], f'/categories/{c["id"]}.html'))
-
-        crumbs.append((sp.get("title_en", ""), None))
         breadcrumbs = render_breadcrumbs(crumbs)
 
         categories_list = []

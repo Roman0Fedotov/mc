@@ -1,3 +1,4 @@
+import html
 from functools import lru_cache
 from templating import root
 
@@ -48,10 +49,21 @@ def make_total_spell_count(children_by_parent, spell_count_by_category):
 
 
 def render_breadcrumbs(items):
+    # items: list[tuple[label, href_or_None]]
     parts = []
-    for label, href in items:
-        if href:
-            parts.append(f'<a href="{root(href)}">{label}</a>')
+    last_i = len(items) - 1
+
+    for i, (label, href) in enumerate(items):
+        label_esc = html.escape(str(label or ""))
+
+        if href and i != last_i:
+            parts.append(f'<li class="bc-item"><a class="bc-link" href="{root(href)}">{label_esc}</a></li>')
         else:
-            parts.append(label)
-    return '<nav class="breadcrumbs">' + " &#8594; ".join(parts) + "</nav>"
+            parts.append(f'<li class="bc-item bc-current" aria-current="page">{label_esc}</li>')
+
+    return (
+        '<nav class="breadcrumbs" aria-label="Breadcrumb">'
+        '<ol class="bc-list">'
+        + "".join(parts) +
+        '</ol></nav>'
+    )
