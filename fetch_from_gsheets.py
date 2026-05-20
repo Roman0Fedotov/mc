@@ -10,7 +10,14 @@ SPREADSHEET_ID = "1rZ8OgKe-lJWTASpfwLWwEC1sOdvFCeu1RmxeQ8v3NyQ"
 
 # Имена листов в том порядке, в каком они есть в таблице
 # Если ваши листы называются иначе, исправьте здесь
-SHEET_NAMES = ["manuscripts", "spells", "categories", "spell_categories"]
+SHEET_NAMES = [
+    "manuscripts",
+    "spells",
+    "categories",
+    "spell_categories",
+    "tags",
+    "spell_tags",
+]
 
 # Папка для сохранения CSV
 DATA_DIR = Path("data")

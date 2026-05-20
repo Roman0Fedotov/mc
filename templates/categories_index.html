@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Categories</h1>
+<h1>{{ t('categories') }}</h1>
 
 {{ tree | safe }}
 
-<p><a href="{{ root('/index.html') }}">&#8592; Back to manuscripts</a></p>
+<p><a href="{{ lang_root('/index.html') }}">&#8592; {{ t('back_to_manuscripts')|replace('← ', '') }}</a></p>
 
 {% endblock %}

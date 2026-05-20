@@ -6,13 +6,13 @@
 
 {{ parent | safe }}
 
-<h3>Subcategories</h3>
+<h3>{{ t('subcategories') }}</h3>
 {{ subcategories | safe }}
 
-<h3>Spells in this category</h3>
+<h3>{{ t('spells_in_category') }}</h3>
 {{ spells | safe }}
 
-<p><a href="{{ root('/categories/index.html') }}">&#8592; Back to categories</a></p>
-<p><a href="{{ root('/index.html') }}">&#8592; Back to manuscripts</a></p>
+<p><a href="{{ lang_root('/categories/index.html') }}">&#8592; {{ t('back_to_categories')|replace('← ', '') }}</a></p>
+<p><a href="{{ lang_root('/index.html') }}">&#8592; {{ t('back_to_manuscripts')|replace('← ', '') }}</a></p>
 
 {% endblock %}

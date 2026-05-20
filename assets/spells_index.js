@@ -1,5 +1,4 @@
 (function () {
-  // только верхнеуровневые строки таблицы (без вложенной таблицы occurrences)
   const rows = Array.from(document.querySelectorAll("#sp-table > tbody > tr"))
     .filter(r => r.hasAttribute("data-letter"));
 
@@ -11,7 +10,15 @@
   if (!rows.length || !countEl || !alphaRoot || !perSel || pagerEls.length === 0) return;
 
   const allowedPer = new Set([20, 50, 100]);
-  const allowedLetters = new Set(["ALL", "OTHER", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")]);
+  const allowedLetters = new Set(
+  Array.from(alphaRoot.querySelectorAll("a[data-letter]"))
+    .map(a => (a.getAttribute("data-letter") || "").toUpperCase())
+  );
+
+  const singular = countEl.dataset.singular || "spell title";
+  const plural = countEl.dataset.plural || "spell titles";
+  const prevLabel = countEl.dataset.prev || "Prev";
+  const nextLabel = countEl.dataset.next || "Next";
 
   const state = { letter: "ALL", per: 20, page: 1 };
 
@@ -79,7 +86,7 @@
       }
       container.style.display = "";
 
-      addPagerItem(container, "Prev", Math.max(1, cur - 1), { disabled: cur === 1 });
+      addPagerItem(container, prevLabel, Math.max(1, cur - 1), { disabled: cur === 1 });
 
       const wanted = new Set([1, pages]);
       for (let i = cur - 2; i <= cur + 2; i++) {
@@ -94,7 +101,7 @@
         last = n;
       }
 
-      addPagerItem(container, "Next", Math.min(pages, cur + 1), { disabled: cur === pages });
+      addPagerItem(container, nextLabel, Math.min(pages, cur + 1), { disabled: cur === pages });
     }
   }
 
@@ -111,7 +118,7 @@
     const end = start + state.per;
     filtered.slice(start, end).forEach(r => (r.style.display = ""));
 
-    const noun = (total === 1) ? "spell title" : "spell titles";
+    const noun = (total === 1) ? singular : plural;
     countEl.textContent = total + " " + noun + (state.letter === "ALL" ? "" : (" (" + state.letter + ")"));
 
     renderPager(total);

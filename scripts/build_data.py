@@ -6,7 +6,14 @@ DATA_DIR = Path("data")
 OUT_DIR = Path("site/data")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-TABLES = ["manuscripts", "spells", "categories", "spell_categories"]
+TABLES = [
+    "manuscripts",
+    "spells",
+    "categories",
+    "spell_categories",
+    "tags",
+    "spell_tags",
+]
 
 def detect_delimiter(sample: str) -> str:
     semicolons = sample.count(";")

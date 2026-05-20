@@ -17,7 +17,7 @@ def load_all():
     # --- safety: filter bad rows (prevents KeyError) ---
     manuscripts = [m for m in manuscripts if isinstance(m, dict) and m.get("id") and m.get("title")]
     spells = [s for s in spells if isinstance(s, dict) and s.get("id") and s.get("manuscript_id")]
-    categories = [c for c in categories if isinstance(c, dict) and c.get("id") and c.get("name")]
+    categories = [c for c in categories if isinstance(c, dict) and c.get("id")]
     spell_categories = [
         sc for sc in spell_categories
         if isinstance(sc, dict) and sc.get("spell_id") and sc.get("category_id")

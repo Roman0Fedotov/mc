@@ -1,22 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title }}</title>
   <link rel="stylesheet" href="{{ root('/style.css') }}{% if cache_bust %}?v={{ cache_bust }}{% endif %}">
 </head>
 <body>
 
-<h1><a href="{{ root('/index.html') }}">Manuscript Corpus</a></h1>
-<nav class="top-nav">
-  <a href="{{ root('/index.html') }}">Manuscripts</a>
-  <a href="{{ root('/spells/index.html') }}">Spells</a>
-  <a href="{{ root('/categories/index.html') }}">Categories</a>
-</nav>
+<header class="site-header">
+  <div class="site-header-row">
+    <h1 class="site-brand">
+      <a href="{{ lang_root('/index.html') }}">{{ t('site_title') }}</a>
+    </h1>
+
+    <nav class="lang-switcher" aria-label="{{ t('language_switcher_label') }}">
+      <a
+        href="{{ lang_url('en', current_rel_path) }}"
+        data-lang-switch="en"
+        hreflang="en"
+        lang="en"
+        class="{% if lang == 'en' %}active{% endif %}"
+      >EN</a>
+
+      <span aria-hidden="true">|</span>
+
+      <a
+        href="{{ lang_url('ru', current_rel_path) }}"
+        data-lang-switch="ru"
+        hreflang="ru"
+        lang="ru"
+        class="{% if lang == 'ru' %}active{% endif %}"
+      >RU</a>
+    </nav>
+  </div>
+
+  <nav class="top-nav">
+    <a href="{{ lang_root('/index.html') }}">{{ t('nav_manuscripts') }}</a>
+    <a href="{{ lang_root('/spells/index.html') }}">{{ t('nav_spells') }}</a>
+    <a href="{{ lang_root('/categories/index.html') }}">{{ t('nav_categories') }}</a>
+  </nav>
+</header>
 
 <hr>
 
 {% block content %}{% endblock %}
 
+<script src="{{ root('/language_switcher.js') }}{% if cache_bust %}?v={{ cache_bust }}{% endif %}" defer></script>
 </body>
 </html>

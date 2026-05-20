@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Spells</h1>
+<h1>{{ t('spells') }}</h1>
 <div class="list-controls">
-  <p id="sp-count">{{ spells|length }} spell titles</p>
+  <p
+  id="sp-count"
+  data-singular="{{ t('spell_title_singular') }}"
+  data-plural="{{ t('spell_title_plural') }}"
+  data-prev="{{ t('prev') }}"
+  data-next="{{ t('next') }}"
+>
+  {{ spells|length }} {{ t('spell_title_plural') }}
+</p>
 
   <div class="per-page">
-    <label for="sp-per-page"><strong>Show:</strong></label>
+    <label for="sp-per-page"><strong>{{ t('show') }}:</strong></label>
     <select id="sp-per-page">
       <option value="20" selected>20</option>
       <option value="50">50</option>
@@ -16,27 +24,26 @@
 </div>
 
 <p id="sp-alpha-filter">
-  <a href="#" data-letter="ALL">ALL</a>
-  {% for L in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+  <a href="#" data-letter="ALL">{{ t('all') }}</a>
+  {% for L in alpha_letters %}
     <a href="#" data-letter="{{ L }}">{{ L }}</a>
   {% endfor %}
-  <a href="#" data-letter="OTHER">OTHER</a>
+  <a href="#" data-letter="OTHER">{{ t('other') }}</a>
 </p>
 
-<div class="pager" data-role="sp-pager" aria-label="Pagination"></div>
+<div class="pager" data-role="sp-pager" aria-label="{{ t('pagination_label') }}"></div>
 
 <table id="sp-table">
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Occurrences</th>
+      <th>{{ t('catalog_title') }}</th>
+      <th>{{ t('occurrences') }}</th>
     </tr>
   </thead>
   <tbody>
     {% for sp in spells %}
-      {% set first = (sp.title_en[:1] if sp.title_en else '#')|upper %}
-      <tr data-letter="{{ first if first in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' else 'OTHER' }}">
-        <td>{{ sp.title_en or 'Untitled' }}</td>
+      <tr data-letter="{{ sp.alpha_letter }}">
+        <td>{{ sp.title_display }}</td>
 
         <td>
           <table>
@@ -50,23 +57,22 @@
 
                 <tr>
                   <td>
-                    <a href="{{ root('/manuscripts/' ~ r.manuscript_id ~ '.html') }}">{{ r.siglum }}</a>
+                    <a href="{{ lang_root('/manuscripts/' ~ r.manuscript_id ~ '.html') }}">{{ r.siglum }}</a>
                   </td>
                   <td>
-                    <a href="{{ root('/spells/' ~ r.spell_id ~ '.html') }}">{{ p }}</a>
+                    <a href="{{ lang_root('/spells/' ~ r.spell_id ~ '.html') }}">{{ p }}</a>
                   </td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
         </td>
-
       </tr>
     {% endfor %}
   </tbody>
 </table>
 
-<div class="pager" data-role="sp-pager" aria-label="Pagination"></div>
+<div class="pager" data-role="sp-pager" aria-label="{{ t('pagination_label') }}"></div>
 
 <script src="{{ root('/spells_index.js') }}{% if cache_bust %}?v={{ cache_bust }}{% endif %}" defer></script>
 

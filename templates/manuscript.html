@@ -3,32 +3,44 @@
 
 {{ breadcrumbs | safe }}
 
-<h2>{{ ms.title }}</h2>
+<h2>{{ ms.title_display }}</h2>
 
-<p><strong>Siglum:</strong> {{ ms.siglum }}</p>
-<p><strong>Location:</strong> {{ ms.location }}</p>
-<p><strong>Date:</strong> {{ ms.date }}</p>
-<p><strong>Format:</strong> {{ ms.format }}</p>
-<p><strong>Number of texts:</strong> {{ ms["N of texts"] }}</p>
+<p><strong>{{ t('siglum') }}:</strong> {{ ms.siglum }}</p>
 
-<h3>Bibliography</h3>
-<p>{{ ms.bibliography }}</p>
+{% if ms.location_display %}
+<p><strong>{{ t('location') }}:</strong> {{ ms.location_display }}</p>
+{% endif %}
 
-<h3>Spells</h3>
+<p><strong>{{ t('date') }}:</strong> {{ ms.date }}</p>
+
+{% if ms.format_display %}
+<p><strong>{{ t('format') }}:</strong> {{ ms.format_display }}</p>
+{% endif %}
+
+{% if ms.texts_count_display %}
+<p><strong>{{ t('texts_count') }}:</strong> {{ ms.texts_count_display }}</p>
+{% endif %}
+
+{% if ms.bibliography_display %}
+<h3>{{ t('bibliography') }}</h3>
+<p>{{ ms.bibliography_display }}</p>
+{% endif %}
+
+<h3>{{ t('spells') }}</h3>
 {% if related_spells %}
   <ul>
     {% for sp in related_spells %}
       <li>
-        <a href="{{ root('/spells/' ~ sp.id ~ '.html') }}">{{ sp.title_en }}</a>
+        <a href="{{ lang_root('/spells/' ~ sp.id ~ '.html') }}">{{ sp.title_display }}</a>
         ({{ sp.page }})
       </li>
     {% endfor %}
   </ul>
 {% else %}
-  <p>No spells recorded.</p>
+  <p>{{ t('no_spells_recorded') }}</p>
 {% endif %}
 
-<p><a href="{{ root('/index.html') }}">&#8592; Back to manuscripts</a></p>
-<p><a href="{{ root('/spells/index.html') }}">&#8592; Back to spells</a></p>
+<p><a href="{{ lang_root('/index.html') }}">&#8592; {{ t('back_to_manuscripts')|replace('← ', '') }}</a></p>
+<p><a href="{{ lang_root('/spells/index.html') }}">&#8592; {{ t('back_to_spells')|replace('← ', '') }}</a></p>
 
 {% endblock %}

@@ -3,35 +3,43 @@
 
 {{ breadcrumbs | safe }}
 
-<h2>{{ sp.title_en }}</h2>
+<h2>{{ sp.title_display }}</h2>
 
-<h3>Categories:</h3>
+<h3>{{ t('categories') }}:</h3>
 {% if categories %}
   <ul>
     {% for c in categories %}
       <li>
-        <a href="{{ root('/categories/' ~ c.id ~ '.html') }}">{{ c.name }}</a>
+        <a href="{{ lang_root('/categories/' ~ c.id ~ '.html') }}">{{ c.name_display }}</a>
       </li>
     {% endfor %}
   </ul>
 {% else %}
-  <p>No categories assigned.</p>
+  <p>{{ t('no_categories_assigned') }}</p>
 {% endif %}
 
-<p><strong>Syriac:</strong> {{ sp.title_syr }}</p>
-<p><strong>Translation:</strong> {{ sp.translation }}</p>
+{% if sp.source_title_syr_display %}
+<p><strong>{{ t('source_title_syriac') }}:</strong> {{ sp.source_title_syr_display }}</p>
+{% endif %}
 
-<p><strong>Manuscript:</strong>
-  <a href="{{ root('/manuscripts/' ~ sp.manuscript_id ~ '.html') }}">
+{% if sp.source_title_translation_display %}
+<p><strong>{{ t('source_title_translation') }}:</strong> {{ sp.source_title_translation_display }}</p>
+{% endif %}
+
+<p><strong>{{ t('manuscript') }}:</strong>
+  <a href="{{ lang_root('/manuscripts/' ~ sp.manuscript_id ~ '.html') }}">
     {{ ms.siglum }}
   </a>
 </p>
 
-<p><strong>Page:</strong> {{ sp.page }}</p>
-<p><strong>Scribe:</strong> {{ sp.scribe }}</p>
+<p><strong>{{ t('page') }}:</strong> {{ sp.page }}</p>
 
-<p><a href="{{ root('/spells/index.html') }}">&#8592; Back to spells</a></p>
-<p><a href="{{ root('/manuscripts/' ~ sp.manuscript_id ~ '.html') }}">&#8592; Back to this manuscript</a></p>
-<p><a href="{{ root('/index.html') }}">&#8592; Back to manuscripts</a></p>
+{% if sp.scribe_display %}
+<p><strong>{{ t('scribe') }}:</strong> {{ sp.scribe_display }}</p>
+{% endif %}
+
+<p><a href="{{ lang_root('/spells/index.html') }}">&#8592; {{ t('back_to_spells')|replace('← ', '') }}</a></p>
+<p><a href="{{ lang_root('/manuscripts/' ~ sp.manuscript_id ~ '.html') }}">&#8592; {{ t('back_to_this_manuscript')|replace('← ', '') }}</a></p>
+<p><a href="{{ lang_root('/index.html') }}">&#8592; {{ t('back_to_manuscripts')|replace('← ', '') }}</a></p>
 
 {% endblock %}

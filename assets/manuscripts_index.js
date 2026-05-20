@@ -18,7 +18,10 @@
       if (show) visible++;
     });
 
-    const noun = (visible === 1) ? "manuscript" : "manuscripts";
+    const singular = countEl.dataset.singular || "manuscript";
+    const plural = countEl.dataset.plural || "manuscripts";
+    const noun = (visible === 1) ? singular : plural;
+
     countEl.textContent = visible + " " + noun + (letter === "ALL" ? "" : (" (" + letter + ")"));
   }
 

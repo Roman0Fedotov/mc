@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Manuscripts</h1>
-<p id="ms-count">{{ manuscripts|length }} manuscripts</p>
+<h1>{{ t('manuscripts') }}</h1>
+<p
+  id="ms-count"
+  data-singular="{{ t('manuscript_singular') }}"
+  data-plural="{{ t('manuscript_plural') }}"
+>
+  {{ manuscripts|length }} {{ t('manuscript_plural') }}
+</p>
 
 <p id="alpha-filter">
-  <a href="#" data-letter="ALL">ALL</a>
+  <a href="#" data-letter="ALL">{{ t('all') }}</a>
   {% for L in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
     <a href="#" data-letter="{{ L }}">{{ L }}</a>
   {% endfor %}
@@ -14,20 +20,20 @@
 <table id="ms-table">
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Siglum</th>
-      <th>Location</th>
-      <th>Date</th>
+      <th>{{ t('title') }}</th>
+      <th>{{ t('siglum') }}</th>
+      <th>{{ t('location') }}</th>
+      <th>{{ t('date') }}</th>
     </tr>
   </thead>
   <tbody>
     {% for ms in manuscripts %}
-      <tr data-letter="{{ (ms.title[:1] if ms.title else '#')|upper }}">
+      <tr data-letter="{{ ms.alpha_letter }}">
         <td>
-          <a href="{{ root('/manuscripts/' ~ ms.id ~ '.html') }}">{{ ms.title }}</a>
+          <a href="{{ lang_root('/manuscripts/' ~ ms.id ~ '.html') }}">{{ ms.title_display }}</a>
         </td>
         <td>{{ ms.siglum }}</td>
-        <td>{{ ms.location }}</td>
+        <td>{{ ms.location_display }}</td>
         <td>{{ ms.date }}</td>
       </tr>
     {% endfor %}

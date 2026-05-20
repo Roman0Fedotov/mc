@@ -21,3 +21,6 @@ files_list.txt
 site/
 data/
 artifact/
+
+# key
+service_account.json

@@ -358,3 +358,53 @@ footer {
     padding: 0 0.25rem;
     color: #7f8c8d;
 }
+
+.site-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.site-brand {
+    margin: 0;
+}
+
+.site-brand a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.site-brand a:hover {
+    text-decoration: none;
+}
+
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-weight: 600;
+}
+
+.lang-switcher a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+.lang-switcher a:hover {
+    text-decoration: underline;
+}
+
+.lang-switcher a.active {
+    color: #2c3e50;
+    text-decoration: none;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .site-header-row {
+        align-items: flex-start;
+    }
+}
