@@ -304,7 +304,7 @@ def build_spells_index(site_dir: Path, tpl_spells_index, spells, manuscript_by_i
         rows.append({
             "title_display": title,
             "alpha_letter": alpha_letter_spell(title, lang),
-            "refs": refs,
+            "occurrence_count": len(refs),
         })
 
     html_out = tpl_spells_index.render(

@@ -37,35 +37,15 @@
   <thead>
     <tr>
       <th>{{ t('catalog_title') }}</th>
-      <th>{{ t('occurrences') }}</th>
+      <th class="count-col">{{ t('occurrence_count') }}</th>
     </tr>
   </thead>
   <tbody>
     {% for sp in spells %}
       <tr data-letter="{{ sp.alpha_letter }}">
         <td>{{ sp.title_display }}</td>
-
-        <td>
-          <table>
-            <tbody>
-              {% for r in sp.refs %}
-                {% set p = (r.page or '?')|trim %}
-                {% set pl = p|lower %}
-                {% if p != '?' and not pl.startswith('fol') %}
-                  {% set p = 'fol. ' ~ p %}
-                {% endif %}
-
-                <tr>
-                  <td>
-                    <a href="{{ lang_root('/manuscripts/' ~ r.manuscript_id ~ '.html') }}">{{ r.siglum }}</a>
-                  </td>
-                  <td>
-                    <a href="{{ lang_root('/spells/' ~ r.spell_id ~ '.html') }}">{{ p }}</a>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+        <td class="count-cell" data-label="{{ t('occurrence_count') }}">
+          {{ sp.occurrence_count }}
         </td>
       </tr>
     {% endfor %}

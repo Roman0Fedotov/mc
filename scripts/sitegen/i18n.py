@@ -25,6 +25,7 @@ TRANSLATIONS = {
         "page": "Лист",
         "scribe": "Писец",
         "occurrences": "Вхождения",
+        "occurrence_count": "Вхождений",
 
         "subcategories": "Подкатегории",
         "parent_category": "Родительская категория",
@@ -83,6 +84,7 @@ TRANSLATIONS = {
         "page": "Page",
         "scribe": "Scribe",
         "occurrences": "Occurrences",
+        "occurrence_count": "Occurrences",
 
         "subcategories": "Subcategories",
         "parent_category": "Parent category",
