@@ -5,11 +5,8 @@ from pathlib import Path
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-# !!! ЗДЕСЬ ВСТАВЬТЕ ВАШ ID ТАБЛИЦЫ !!!
 SPREADSHEET_ID = "1rZ8OgKe-lJWTASpfwLWwEC1sOdvFCeu1RmxeQ8v3NyQ"
 
-# Имена листов в том порядке, в каком они есть в таблице
-# Если ваши листы называются иначе, исправьте здесь
 SHEET_NAMES = [
     "manuscripts",
     "spells",
@@ -24,7 +21,6 @@ DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
 
 def fetch_sheet_to_csv(sheet_name):
-    """Читает лист и сохраняет как CSV с разделителем ';'."""
     # Получаем лист по имени
     worksheet = sh.worksheet(sheet_name)
     # Читаем все значения (список списков)
@@ -45,8 +41,6 @@ def fetch_sheet_to_csv(sheet_name):
     print(f"✓ {sheet_name}.csv сохранён, {len(rows)} строк")
 
 if __name__ == "__main__":
-    # Авторизация через сервисный аккаунт
-    # Ключ берётся из переменной окружения (секрета GitHub)
     creds_json = os.environ.get("GCP_SERVICE_ACCOUNT_KEY")
     if not creds_json:
         raise ValueError("GCP_SERVICE_ACCOUNT_KEY environment variable not set")

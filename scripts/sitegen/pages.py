@@ -133,6 +133,65 @@ def get_spell_scribe(sp: dict) -> str:
     return first_non_empty(sp.get("scribe"))
 
 
+def prepare_full_text(full_text: dict, lang: str):
+    if not isinstance(full_text, dict):
+        return None
+
+    source_title = full_text.get("source_title") or {}
+    if not isinstance(source_title, dict):
+        source_title = {}
+
+    lines_out = []
+
+    for line in full_text.get("lines") or []:
+        if not isinstance(line, dict):
+            continue
+
+        translation = line.get("translation") or {}
+        if not isinstance(translation, dict):
+            translation = {}
+
+        lines_out.append({
+            "n": _clean(line.get("n")),
+            "syr": _clean(line.get("syr")),
+            "translation_ru": _clean(translation.get("ru")),
+            "translation_en": _clean(translation.get("en")),
+            "translation_current": first_non_empty(
+                translation.get(lang),
+                translation.get("ru"),
+                translation.get("en"),
+            ),
+            "note": _clean(line.get("note")),
+        })
+
+    bibliography_out = []
+    bibliography = full_text.get("bibliography") or []
+
+    if isinstance(bibliography, list):
+        for item in bibliography:
+            if isinstance(item, dict):
+                text = _clean(item.get("text"))
+            else:
+                text = _clean(item)
+
+            if text:
+                bibliography_out.append(text)
+
+    return {
+        "spell_id": _clean(full_text.get("spell_id")),
+        "source_title_syr": _clean(source_title.get("syr")),
+        "source_title_ru": _clean(source_title.get("ru")),
+        "source_title_en": _clean(source_title.get("en")),
+        "source_title_current": first_non_empty(
+            source_title.get(lang),
+            source_title.get("ru"),
+            source_title.get("en"),
+        ),
+        "lines": lines_out,
+        "bibliography": bibliography_out,
+    }
+
+
 def prepare_manuscript(ms: dict, lang: str) -> dict:
     item = dict(ms)
     item["title_display"] = get_ms_title(ms)
@@ -201,7 +260,7 @@ def build_manuscripts(site_dir: Path, tpl_ms, manuscripts, spells_by_ms_id, lang
 
 
 
-def build_spells(site_dir: Path, tpl_spell, spells, manuscript_by_id, cats_by_spell_id, category_by_id, category_ancestors, lang):
+def build_spells(site_dir: Path, tpl_spell, spells, manuscript_by_id, cats_by_spell_id, category_by_id, category_ancestors, spell_texts, lang):
     out_dir = site_dir / "spells"
     out_dir.mkdir(exist_ok=True)
 
@@ -228,12 +287,25 @@ def build_spells(site_dir: Path, tpl_spell, spells, manuscript_by_id, cats_by_sp
                     "name_display": get_category_name(c, lang),
                 })
 
+        full_text = prepare_full_text(spell_texts.get(_clean(sp.get("id"))), lang)
+
+        if full_text:
+            sp_view["source_title_syr_display"] = first_non_empty(
+                full_text.get("source_title_syr"),
+                sp_view.get("source_title_syr_display"),
+            )
+            sp_view["source_title_translation_display"] = first_non_empty(
+                full_text.get("source_title_current"),
+                sp_view.get("source_title_translation_display"),
+            )
+
         html_out = tpl_spell.render(
             title=sp_view["title_display"] or tr(lang, "spells"),
             sp=sp_view,
             ms=ms_view,
             breadcrumbs=breadcrumbs,
             categories=categories_list,
+            full_text=full_text,
             current_rel_path=f"/spells/{sp['id']}.html",
     )
         (out_dir / f"{sp['id']}.html").write_text(html_out, encoding="utf-8")

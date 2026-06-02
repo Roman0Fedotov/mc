@@ -24,3 +24,6 @@ artifact/
 
 # key
 service_account.json
+
+private-data/
+*.docx

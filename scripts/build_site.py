@@ -5,6 +5,7 @@ from pathlib import Path
 from templating import make_env
 
 from sitegen.data_loader import load_all
+from sitegen.texts_loader import load_spell_texts
 from sitegen.indexes import build_indexes
 from sitegen.services import build_category_graph, make_total_spell_count
 from sitegen.pages import (
@@ -90,6 +91,7 @@ def main() -> None:
     copy_assets(SITE)
 
     manuscripts, spells, categories, spell_categories = load_all()
+    spell_texts = load_spell_texts()
 
     if args.validate or args.strict:
         errors, warnings = validate_data(manuscripts, spells, categories, spell_categories)
@@ -129,6 +131,7 @@ def main() -> None:
             idx["cats_by_spell_id"],
             category_by_id,
             category_ancestors,
+            spell_texts,
             lang,
         )
         build_spells_index(lang_dir, tpl_spells_index, spells, idx["manuscript_by_id"], lang)

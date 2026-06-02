@@ -31,6 +31,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Checkout private text data
+        uses: actions/checkout@v4
+        with:
+          repository: roman0fedotov/mc-data-private
+          path: private-data
+          token: ${{ secrets.MC_DATA_PAT }}
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -49,11 +56,39 @@ jobs:
       - name: Convert CSV to JSON
         run: python scripts/build_data.py
 
+      - name: Validate private text JSON
+        run: python scripts/validate_texts.py --texts-dir private-data/texts --strict
+
       - name: Build HTML site
         env:
           BASE_PATH: "mc"
           CACHE_BUST: ${{ github.sha }}
+          PRIVATE_TEXTS_DIR: "private-data/texts"
         run: python scripts/build_site.py --clean --strict
+
+      - name: Ensure private JSON files are not published
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          bad = []
+
+          bad.extend(Path("site").glob("**/private-data/**"))
+
+          bad.extend(Path("site").glob("**/texts/*.json"))
+
+          for p in Path("site").glob("**/*.json"):
+              if p.name.startswith("sp") and p.name[2:6].isdigit():
+                  bad.append(p)
+
+          if bad:
+              print("Private files found in site artifact:")
+              for p in bad:
+                  print(p)
+              raise SystemExit(1)
+
+          print("OK: no private text JSON files in site artifact")
+          PY
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

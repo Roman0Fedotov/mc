@@ -19,7 +19,9 @@
 {% endif %}
 
 {% if sp.source_title_syr_display %}
-<p><strong>{{ t('source_title_syriac') }}:</strong> {{ sp.source_title_syr_display }}</p>
+<p><strong>{{ t('source_title_syriac') }}:</strong>
+  <span class="syriac-text" dir="rtl" lang="syr">{{ sp.source_title_syr_display }}</span>
+</p>
 {% endif %}
 
 {% if sp.source_title_translation_display %}
@@ -36,6 +38,67 @@
 
 {% if sp.scribe_display %}
 <p><strong>{{ t('scribe') }}:</strong> {{ sp.scribe_display }}</p>
+{% endif %}
+
+{% if full_text and full_text.lines %}
+<section
+  class="edition-block"
+  data-translation-switcher
+  data-active-translation="{{ lang }}"
+>
+  <h3>{{ t('full_text') }}</h3>
+
+  <div class="translation-switcher" role="group" aria-label="{{ t('translation_switcher_label') }}">
+    <button type="button" data-translation-target="ru" class="{% if lang == 'ru' %}active{% endif %}">
+      {{ t('translation_ru') }}
+    </button>
+    <button type="button" data-translation-target="en" class="{% if lang == 'en' %}active{% endif %}">
+      {{ t('translation_en') }}
+    </button>
+  </div>
+
+  <table class="edition-table">
+    <thead>
+      <tr>
+        <th>{{ t('translation') }}</th>
+        <th>{{ t('syriac_text') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in full_text.lines %}
+      <tr>
+        <td class="translation-cell">
+          {% if line.n %}<span class="line-number">{{ line.n }}</span>{% endif %}
+
+          <span data-translation-text="ru">
+            {{ line.translation_ru if line.translation_ru else '—' }}
+          </span>
+          <span data-translation-text="en">
+            {{ line.translation_en if line.translation_en else '—' }}
+          </span>
+
+          {% if line.note %}
+            <div class="line-note"><strong>{{ t('note') }}:</strong> {{ line.note }}</div>
+          {% endif %}
+        </td>
+
+        <td class="syriac-cell syriac-text" dir="rtl" lang="syr">{{ line.syr }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if full_text.bibliography %}
+    <h3>{{ t('text_bibliography') }}</h3>
+    <ul>
+      {% for item in full_text.bibliography %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+
+<script src="{{ root('/text_translation_switcher.js') }}{% if cache_bust %}?v={{ cache_bust }}{% endif %}" defer></script>
 {% endif %}
 
 <p><a href="{{ lang_root('/spells/index.html') }}">&#8592; {{ t('back_to_spells')|replace('← ', '') }}</a></p>

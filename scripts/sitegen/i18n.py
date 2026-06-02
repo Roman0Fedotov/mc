@@ -56,6 +56,15 @@ TRANSLATIONS = {
 
         "language_switcher_label": "Переключение языка",
         "pagination_label": "Пагинация",
+
+        "full_text": "Текст",
+        "translation": "Перевод",
+        "syriac_text": "Сирийский текст",
+        "translation_switcher_label": "Переключение перевода",
+        "translation_ru": "Русский",
+        "translation_en": "English",
+        "note": "Примечание",
+        "text_bibliography": "Библиография текста",
     },
 
     "en": {
@@ -115,6 +124,15 @@ TRANSLATIONS = {
 
         "language_switcher_label": "Language switcher",
         "pagination_label": "Pagination",
+
+        "full_text": "Text",
+        "translation": "Translation",
+        "syriac_text": "Syriac text",
+        "translation_switcher_label": "Translation switcher",
+        "translation_ru": "Русский",
+        "translation_en": "English",
+        "note": "Note",
+        "text_bibliography": "Text bibliography",
     },
 }
 
