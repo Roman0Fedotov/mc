@@ -560,6 +560,19 @@ footer {
     width: 50%;
 }
 
+.edition-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.edition-table tbody tr:nth-child(even) {
+    background-color: #f6f9fb;
+}
+
+.edition-table .syriac-text {
+    font-size: 2.8rem;
+    line-height: 1.55;
+}
+
 .translation-cell,
 .syriac-cell {
     vertical-align: top;
@@ -619,7 +632,11 @@ footer {
 
     .syriac-cell {
         order: 1;
-        font-size: 1.25rem;
+    }
+
+    .edition-table .syriac-text {
+        font-size: 2.25rem;
+        line-height: 1.55;
     }
 
     .translation-cell {
