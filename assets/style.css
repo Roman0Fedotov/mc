@@ -209,17 +209,16 @@ footer {
 /* === Syriac text: East Syriac Adiabene === */
 
 @font-face {
-    font-family: "Corpus East Syriac";
-    src: url("fonts/SyrCOMAdiabene.otf") format("truetype");
+    font-family: "SyrCOMAdiabeneWeb";
+    src: url("fonts/SyrCOMAdiabene.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
-    unicode-range: U+0700-074F, U+0860-086F;
 }
 
 .syriac-text {
     font-family:
-        "Corpus East Syriac",
+        "SyrCOMAdiabeneWeb",
         "East Syriac Adiabene",
         "Noto Sans Syriac Eastern",
         "Noto Sans Syriac",

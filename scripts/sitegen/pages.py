@@ -1,4 +1,5 @@
 import html
+import unicodedata
 from pathlib import Path
 
 from templating import lang_root
@@ -20,6 +21,41 @@ def _clean(value) -> str:
     if value is None:
         return ""
     return str(value).strip()
+
+
+def normalize_syriac_for_display(value) -> str:
+    text = _clean(value)
+
+    result = []
+    i = 0
+
+    while i < len(text):
+        ch = text[i]
+
+        if ch != "ܪ":
+            result.append(ch)
+            i += 1
+            continue
+
+        j = i + 1
+        marks = []
+
+        while j < len(text) and unicodedata.category(text[j]).startswith("M"):
+            marks.append(text[j])
+            j += 1
+
+        has_syame = "\u0308" in marks
+        has_other_marks = len(marks) > 1
+
+        if has_syame and has_other_marks:
+            result.append("ܖ")
+        else:
+            result.append(ch)
+
+        result.extend(marks)
+        i = j
+
+    return "".join(result)
 
 
 def first_non_empty(*values) -> str:
@@ -121,7 +157,7 @@ def get_spell_catalog_title(sp: dict, lang: str) -> str:
 
 
 def get_spell_source_title_syr(sp: dict) -> str:
-    return first_non_empty(sp.get("source_title_syr"))
+    return normalize_syriac_for_display(sp.get("source_title_syr"))
 
 
 def get_spell_source_title_translation(sp: dict, lang: str) -> str:
@@ -153,7 +189,7 @@ def prepare_full_text(full_text: dict, lang: str):
 
         lines_out.append({
             "n": _clean(line.get("n")),
-            "syr": _clean(line.get("syr")),
+            "syr": normalize_syriac_for_display(line.get("syr")),
             "translation_ru": _clean(translation.get("ru")),
             "translation_en": _clean(translation.get("en")),
             "translation_current": first_non_empty(
@@ -179,7 +215,7 @@ def prepare_full_text(full_text: dict, lang: str):
 
     return {
         "spell_id": _clean(full_text.get("spell_id")),
-        "source_title_syr": _clean(source_title.get("syr")),
+        "source_title_syr": normalize_syriac_for_display(source_title.get("syr")),
         "source_title_ru": _clean(source_title.get("ru")),
         "source_title_en": _clean(source_title.get("en")),
         "source_title_current": first_non_empty(
