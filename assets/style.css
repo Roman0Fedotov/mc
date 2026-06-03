@@ -206,12 +206,62 @@ footer {
     }
 }
 
-/* === Специальные стили для сирийского текста === */
+/* === Syriac text: East Syriac Adiabene === */
+
+@font-face {
+    font-family: "Corpus East Syriac";
+    src: url("fonts/SyrCOMAdiabene.otf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0700-074F, U+0860-086F;
+}
+
 .syriac-text {
-    font-family: 'Estrangelo Edessa', 'Serto Jerusalem', sans-serif;
-    font-size: 1.2rem;
+    font-family:
+        "Corpus East Syriac",
+        "East Syriac Adiabene",
+        "Noto Sans Syriac Eastern",
+        "Noto Sans Syriac",
+        "Estrangelo Edessa",
+        serif;
+
     direction: rtl;
+    unicode-bidi: isolate;
+
+    font-size: 1.45rem;
+    line-height: 2.15;
     color: #2c3e50;
+
+    text-rendering: optimizeLegibility;
+    font-variant-ligatures: normal;
+
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+}
+
+.syriac-inline {
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline-start: 0.35rem;
+}
+
+.syriac-block {
+    display: block;
+    text-align: right;
+    white-space: pre-wrap;
+}
+
+.syriac-cell {
+    text-align: right;
+    vertical-align: top;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.syriac-cell .syriac-block {
+    overflow-x: auto;
 }
 
 /* === Подсветка для важной информации === */

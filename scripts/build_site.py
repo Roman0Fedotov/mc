@@ -41,9 +41,14 @@ def copy_assets(site_dir: Path) -> None:
     if not css.exists():
         raise SystemExit(f"Missing stylesheet: {css}. Put your CSS there.")
 
-    for p in ASSETS.iterdir():
-        if p.is_file():
-            shutil.copy2(p, site_dir / p.name)
+    for p in ASSETS.rglob("*"):
+        if not p.is_file():
+            continue
+
+        rel = p.relative_to(ASSETS)
+        target = site_dir / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(p, target)
 
 
 def write_root_redirect(site_dir: Path) -> None:
