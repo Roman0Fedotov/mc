@@ -643,3 +643,212 @@ footer {
         order: 2;
     }
 }
+
+/* === Индекс категорий: сворачиваемое дерево === */
+
+.category-index-tree,
+.category-index-tree__children {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.category-index-tree {
+    border-top: 1px solid #dfe5e8;
+    margin-bottom: 1.5rem;
+}
+
+.category-index-tree__item {
+    margin: 0;
+}
+
+/* Разделение основных категорий */
+
+.category-index-tree > .category-index-tree__item {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #dfe5e8;
+}
+
+/* Одна строка категории */
+
+.category-index-tree__row {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 1.65rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.45rem;
+
+    min-height: 2.7rem;
+    padding: 0.3rem 0.45rem;
+    border-radius: 4px;
+}
+
+.category-index-tree__row:hover {
+    background-color: #f6f9fb;
+}
+
+/* Название категории */
+
+.category-index-tree__link {
+    min-width: 0;
+    color: #405563;
+    font-weight: 600;
+    overflow-wrap: break-word;
+}
+
+.category-index-tree__link:hover {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+/* Основные категории крупнее */
+
+.category-index-tree
+> .category-index-tree__item
+> .category-index-tree__row
+> .category-index-tree__link {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 650;
+}
+
+/* Более глубокие уровни немного легче */
+
+.category-index-tree__children
+.category-index-tree__children
+.category-index-tree__link {
+    color: #2980b9;
+    font-weight: 500;
+}
+
+/* Кнопка раскрытия */
+
+.category-index-tree__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1.65rem;
+    height: 1.9rem;
+
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+
+    background: transparent;
+    color: #3498db;
+
+    font: inherit;
+    cursor: pointer;
+}
+
+.category-index-tree__toggle:hover {
+    background-color: #ecf0f1;
+}
+
+.category-index-tree__toggle:focus-visible {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Пустое место вместо стрелки у конечной категории */
+
+.category-index-tree__toggle-placeholder {
+    display: block;
+    width: 1.65rem;
+    height: 1.9rem;
+}
+
+/* Поворот стрелки */
+
+.category-index-tree__chevron {
+    display: inline-block;
+    font-size: 1.35rem;
+    line-height: 1;
+
+    transform: rotate(0deg);
+    transition: transform 0.18s ease;
+}
+
+.category-index-tree__toggle[aria-expanded="true"]
+.category-index-tree__chevron {
+    transform: rotate(90deg);
+}
+
+/* Счётчик */
+
+.category-index-tree__count {
+    justify-self: end;
+    min-width: 2rem;
+    margin-left: 0;
+    text-align: center;
+}
+
+.category-index-tree__count--zero {
+    background-color: #e7ecef;
+    color: #6d7b83;
+}
+
+/* Дочерние уровни */
+
+.category-index-tree__children {
+    margin-left: 1.35rem;
+    padding-left: 1rem;
+    border-left: 2px solid #d5dfe4;
+}
+
+/* Горизонтальная линия от вертикальной ветви к категории */
+
+.category-index-tree__children
+> .category-index-tree__item
+> .category-index-tree__row::before {
+    content: "";
+
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+
+    width: 0.72rem;
+    border-top: 2px solid #d5dfe4;
+}
+
+/* Скрытая ветвь */
+
+.category-index-tree__children[hidden] {
+    display: none;
+}
+
+/* Мобильная версия */
+
+@media (max-width: 768px) {
+    .category-index-tree__row {
+        grid-template-columns: 1.45rem minmax(0, 1fr) auto;
+        gap: 0.3rem;
+        padding-right: 0.2rem;
+    }
+
+    .category-index-tree
+    > .category-index-tree__item
+    > .category-index-tree__row
+    > .category-index-tree__link {
+        font-size: 1rem;
+    }
+
+    .category-index-tree__children {
+        margin-left: 0.75rem;
+        padding-left: 0.65rem;
+    }
+
+    .category-index-tree__children
+    > .category-index-tree__item
+    > .category-index-tree__row::before {
+        left: -0.65rem;
+        width: 0.5rem;
+    }
+
+    .category-index-tree__count {
+        min-width: 1.8rem;
+        padding: 0.15rem 0.45rem;
+    }
+}

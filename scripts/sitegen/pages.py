@@ -530,47 +530,117 @@ def build_categories(
 
 
 
-def build_categories_index(site_dir: Path, tpl_cats_index, children_by_parent, total_spell_count, lang):
+def build_categories_index(
+    site_dir: Path,
+    tpl_cats_index,
+    children_by_parent,
+    total_spell_count,
+    lang,
+):
     categories_dir = site_dir / "categories"
     categories_dir.mkdir(exist_ok=True)
-    tree_blocks = []
 
-    root_categories = sorted(
-        children_by_parent.get(None, []),
-        key=lambda c: (get_category_name(c, lang).lower(), _clean(c.get("id"))),
+    toggle_text = (
+        "Свернуть или развернуть подкатегории"
+        if lang == "ru"
+        else "Collapse or expand subcategories"
     )
 
-    for root_cat in root_categories:
-        root_id = root_cat["id"]
-        root_name = get_category_name(root_cat, lang)
-        count = total_spell_count(root_id)
-
-        block = (
-            f'<h2><a href="{lang_root(lang, "/categories/" + root_id + ".html")}">'
-            f'{html.escape(root_name)} ({count})'
-            f'</a></h2>'
+    def render_items(parent_id=None, path=()):
+        categories = sorted(
+            children_by_parent.get(parent_id, []),
+            key=lambda c: (
+                get_category_name(c, lang).lower(),
+                _clean(c.get("id")),
+            ),
         )
 
-        children = sorted(
-            children_by_parent.get(root_id, []),
-            key=lambda c: (get_category_name(c, lang).lower(), _clean(c.get("id"))),
-        )
+        items = []
 
-        if children:
-            block += "<ul>" + "".join(
-                f'<li><a href="{lang_root(lang, "/categories/" + c["id"] + ".html")}">'
-                f'{html.escape(get_category_name(c, lang))} ({total_spell_count(c["id"])})'
-                f'</a></li>'
-                for c in children
-            ) + "</ul>"
+        for cat in categories:
+            cat_id = _clean(cat.get("id"))
 
-        tree_blocks.append(block)
+            # Дополнительная защита от пустых id и циклов.
+            if not cat_id or cat_id in path:
+                continue
 
-    tree_html = "\n".join(tree_blocks)
+            cat_name = get_category_name(cat, lang)
+            count = total_spell_count(cat_id)
+            has_children = bool(children_by_parent.get(cat_id))
+
+            if has_children:
+                aria_label = html.escape(
+                    f"{toggle_text}: {cat_name}",
+                    quote=True,
+                )
+
+                toggle_html = (
+                    '<button '
+                    'type="button" '
+                    'class="category-index-tree__toggle" '
+                    'aria-expanded="true" '
+                    f'aria-label="{aria_label}">'
+                    '<span '
+                    'class="category-index-tree__chevron" '
+                    'aria-hidden="true">›</span>'
+                    '</button>'
+                )
+            else:
+                toggle_html = (
+                    '<span '
+                    'class="category-index-tree__toggle-placeholder" '
+                    'aria-hidden="true"></span>'
+                )
+
+            count_classes = "count-badge category-index-tree__count"
+
+            if count == 0:
+                count_classes += " category-index-tree__count--zero"
+
+            children_html = ""
+
+            if has_children:
+                children_html = (
+                    '<ul class="category-index-tree__children">'
+                    + render_items(
+                        cat_id,
+                        path + (cat_id,),
+                    )
+                    + "</ul>"
+                )
+
+            items.append(
+                '<li class="category-index-tree__item">'
+                '<div class="category-index-tree__row">'
+                f"{toggle_html}"
+                '<a '
+                'class="category-index-tree__link" '
+                f'href="{lang_root(lang, "/categories/" + cat_id + ".html")}">'
+                f"{html.escape(cat_name)}"
+                "</a>"
+                f'<span class="{count_classes}">{count}</span>'
+                "</div>"
+                f"{children_html}"
+                "</li>"
+            )
+
+        return "".join(items)
+
+    tree_html = (
+        '<ul '
+        'class="category-index-tree" '
+        'data-category-index-tree>'
+        + render_items()
+        + "</ul>"
+    )
 
     html_out = tpl_cats_index.render(
         title=tr(lang, "categories"),
         tree=tree_html,
         current_rel_path="/categories/index.html",
     )
-    (site_dir / "categories" / "index.html").write_text(html_out, encoding="utf-8")
+
+    (categories_dir / "index.html").write_text(
+        html_out,
+        encoding="utf-8",
+    )

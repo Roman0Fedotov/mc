@@ -5,6 +5,9 @@
 
 {{ tree | safe }}
 
-<p><a href="{{ lang_root('/index.html') }}">&#8592; {{ t('back_to_manuscripts')|replace('← ', '') }}</a></p>
+<script
+  src="{{ root('/categories_tree.js') }}{% if cache_bust %}?v={{ cache_bust }}{% endif %}"
+  defer
+></script>
 
 {% endblock %}
