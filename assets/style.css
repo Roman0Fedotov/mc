@@ -852,3 +852,23 @@ footer {
         padding: 0.15rem 0.45rem;
     }
 }
+
+/* === Manuscripts index table === */
+
+.manuscripts-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.manuscripts-table-wrap #ms-table {
+    min-width: 820px;
+    margin-bottom: 0;
+}
+
+#ms-table th:first-child,
+#ms-table td:first-child,
+#ms-table th:last-child,
+#ms-table td:last-child {
+    white-space: nowrap;
+}

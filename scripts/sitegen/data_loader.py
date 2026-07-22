@@ -23,9 +23,9 @@ def load_all():
         if isinstance(sc, dict) and sc.get("spell_id") and sc.get("category_id")
     ]
 
-    # --- UX: sort manuscripts (stable navigation) ---
+    # --- UX: sort manuscripts by siglum ---
     manuscripts.sort(key=lambda m: (
-        (m.get("title") or "").lower(),
+        (m.get("siglum") or m.get("title") or "").lower(),
         m.get("id") or "",
     ))
 

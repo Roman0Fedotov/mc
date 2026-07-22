@@ -17,28 +17,36 @@
   {% endfor %}
 </p>
 
-<table id="ms-table">
-  <thead>
-    <tr>
-      <th>{{ t('title') }}</th>
-      <th>{{ t('siglum') }}</th>
-      <th>{{ t('location') }}</th>
-      <th>{{ t('date') }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for ms in manuscripts %}
-      <tr data-letter="{{ ms.alpha_letter }}">
-        <td>
-          <a href="{{ lang_root('/manuscripts/' ~ ms.id ~ '.html') }}">{{ ms.title_display }}</a>
-        </td>
-        <td>{{ ms.siglum }}</td>
-        <td>{{ ms.location_display }}</td>
-        <td>{{ ms.date }}</td>
+<div class="manuscripts-table-wrap">
+  <table id="ms-table">
+    <thead>
+      <tr>
+        <th>{{ t('siglum') }}</th>
+        <th>{{ t('location') }}</th>
+        <th>{{ t('collection') }}</th>
+        <th>{{ t('shelfmark') }}</th>
+        <th>{{ t('date') }}</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      {% for ms in manuscripts %}
+        <tr data-letter="{{ ms.alpha_letter }}">
+          <td>
+            <a href="{{ lang_root('/manuscripts/' ~ ms.id ~ '.html') }}">
+              {{ ms.siglum_display }}
+            </a>
+          </td>
+
+          <td>{{ ms.location_display }}</td>
+          <td>{{ ms.collection_display }}</td>
+          <td>{{ ms.shelfmark_display }}</td>
+          <td>{{ ms.date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 <script src="{{ root('/manuscripts_index.js') }}{% if cache_bust %}?v={{ cache_bust }}{% endif %}" defer></script>
 

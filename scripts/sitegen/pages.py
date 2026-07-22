@@ -99,6 +99,22 @@ def get_ms_title(ms: dict) -> str:
     return first_non_empty(ms.get("title"), ms.get("id"))
 
 
+def get_ms_siglum(ms: dict) -> str:
+    return first_non_empty(
+        ms.get("siglum"),
+        ms.get("title"),
+        ms.get("id"),
+    )
+
+
+def get_ms_collection(ms: dict) -> str:
+    return first_non_empty(ms.get("collection"))
+
+
+def get_ms_shelfmark(ms: dict) -> str:
+    return first_non_empty(ms.get("shelfmark"))
+
+
 def get_ms_location(ms: dict, lang: str) -> str:
     return first_non_empty(ms.get(f"location_{lang}"), ms.get("location"))
 
@@ -230,12 +246,20 @@ def prepare_full_text(full_text: dict, lang: str):
 
 def prepare_manuscript(ms: dict, lang: str) -> dict:
     item = dict(ms)
+
     item["title_display"] = get_ms_title(ms)
+    item["siglum_display"] = get_ms_siglum(ms)
     item["location_display"] = get_ms_location(ms, lang)
+    item["collection_display"] = get_ms_collection(ms)
+    item["shelfmark_display"] = get_ms_shelfmark(ms)
     item["format_display"] = get_ms_format(ms, lang)
     item["bibliography_display"] = get_ms_bibliography(ms, lang)
     item["texts_count_display"] = get_ms_texts_count(ms)
-    item["alpha_letter"] = alpha_letter_en(item["title_display"])
+
+    # Алфавитный фильтр на странице рукописей должен
+    # соответствовать первой видимой колонке — Siglum.
+    item["alpha_letter"] = alpha_letter_en(item["siglum_display"])
+
     return item
 
 
