@@ -16,10 +16,18 @@ TABLES = [
     "bibliography",
 ]
 
-def detect_delimiter(sample: str) -> str:
-    semicolons = sample.count(";")
-    commas = sample.count(",")
-    return ";" if semicolons >= commas else ","
+def csv_to_json(name: str) -> None:
+    csv_path = DATA_DIR / f"{name}.csv"
+    json_path = OUT_DIR / f"{name}.json"
+
+    with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f, delimiter=";")
+        rows = list(reader)
+
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(rows, f, ensure_ascii=False, indent=2)
+
+    print(f"✔ {name}.json created")
 
 def csv_to_json(name: str) -> None:
     csv_path = DATA_DIR / f"{name}.csv"
