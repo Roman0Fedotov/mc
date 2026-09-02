@@ -4,7 +4,7 @@ from pathlib import Path
 
 from templating import make_env
 
-from sitegen.data_loader import load_all
+from sitegen.data_loader import load_all, load_bibliography
 from sitegen.texts_loader import load_spell_texts
 from sitegen.indexes import build_indexes
 from sitegen.services import build_category_graph, make_total_spell_count
@@ -15,6 +15,7 @@ from sitegen.pages import (
     build_spells_index,
     build_categories,
     build_categories_index,
+    build_bibliography,
 )
 from sitegen.validate import validate_data
 
@@ -97,6 +98,7 @@ def main() -> None:
 
     manuscripts, spells, categories, spell_categories = load_all()
     spell_texts = load_spell_texts()
+    bibliography = load_bibliography()
 
     if args.validate or args.strict:
         errors, warnings = validate_data(manuscripts, spells, categories, spell_categories)
@@ -125,6 +127,7 @@ def main() -> None:
         tpl_spell = env.get_template("spell.html")
         tpl_cat = env.get_template("category.html")
         tpl_cats_index = env.get_template("categories_index.html")
+        tpl_bibliography = env.get_template("bibliography_index.html")
 
         build_index(lang_dir, tpl_index, manuscripts, lang)
         build_manuscripts(lang_dir, tpl_ms, manuscripts, idx["spells_by_ms_id"], lang)
@@ -153,7 +156,8 @@ def main() -> None:
             idx["spell_by_id"],
             lang,
         )
-        build_categories_index(lang_dir, tpl_cats_index, children_by_parent, total_spell_count, lang)
+        build_categories_index(lang_dir, tpl_cats_index, children_by_parent, total_spell_count, lang,)
+        build_bibliography(lang_dir, tpl_bibliography, bibliography, lang,)
 
     write_root_redirect(SITE)
 

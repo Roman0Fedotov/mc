@@ -13,6 +13,7 @@ TABLES = [
     "spell_categories",
     "tags",
     "spell_tags",
+    "bibliography",
 ]
 
 def detect_delimiter(sample: str) -> str:

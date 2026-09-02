@@ -668,3 +668,25 @@ def build_categories_index(
         html_out,
         encoding="utf-8",
     )
+
+
+
+def build_bibliography(
+    site_dir: Path,
+    tpl_bibliography,
+    bibliography,
+    lang,
+):
+    bibliography_dir = site_dir / "bibliography"
+    bibliography_dir.mkdir(exist_ok=True)
+
+    html_out = tpl_bibliography.render(
+        title=tr(lang, "bibliography"),
+        bibliography=bibliography,
+        current_rel_path="/bibliography/index.html",
+    )
+
+    (bibliography_dir / "index.html").write_text(
+        html_out,
+        encoding="utf-8",
+    )

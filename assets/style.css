@@ -872,3 +872,44 @@ footer {
 #ms-table td:last-child {
     white-space: nowrap;
 }
+
+/* === Bibliography === */
+
+.bibliography-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+#bibliography-table {
+    min-width: 760px;
+    table-layout: fixed;
+    margin-bottom: 0;
+}
+
+#bibliography-table th:first-child,
+#bibliography-table td:first-child {
+    width: 14rem;
+    vertical-align: top;
+}
+
+#bibliography-table .bibliography-abbr {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+#bibliography-table td:last-child {
+    vertical-align: top;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+    #bibliography-table {
+        min-width: 680px;
+    }
+
+    #bibliography-table th:first-child,
+    #bibliography-table td:first-child {
+        width: 12rem;
+    }
+}

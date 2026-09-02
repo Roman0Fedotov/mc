@@ -14,6 +14,7 @@ SHEET_NAMES = [
     "spell_categories",
     "tags",
     "spell_tags",
+    "bibliography",
 ]
 
 # Папка для сохранения CSV

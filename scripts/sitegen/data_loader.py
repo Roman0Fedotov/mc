@@ -7,6 +7,32 @@ DATA = SITE / "data"
 def _load_json(name: str):
     with open(DATA / f"{name}.json", encoding="utf-8") as f:
         return json.load(f)
+    
+def load_bibliography():
+    rows = _load_json("bibliography")
+
+    bibliography = []
+
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+
+        abbr = str(row.get("abbr") or "").strip()
+        citation = str(row.get("citation") or "").strip()
+
+        if not abbr or not citation:
+            continue
+
+        bibliography.append({
+            "abbr": abbr,
+            "citation": citation,
+        })
+
+    bibliography.sort(
+        key=lambda item: item["abbr"].casefold()
+    )
+
+    return bibliography
 
 def load_all():
     manuscripts = _load_json("manuscripts")

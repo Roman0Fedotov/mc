@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ t('bibliography') }}</h1>
+
+<div class="bibliography-table-wrap">
+  <table id="bibliography-table">
+    <thead>
+      <tr>
+        <th>{{ t('bibliography_abbr') }}</th>
+        <th>{{ t('bibliography_citation') }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for item in bibliography %}
+        <tr>
+          <td class="bibliography-abbr">
+            {{ item.abbr }}
+          </td>
+          <td>
+            {{ item.citation }}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

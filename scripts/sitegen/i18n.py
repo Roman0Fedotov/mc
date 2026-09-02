@@ -5,6 +5,7 @@ TRANSLATIONS = {
         "nav_manuscripts": "Рукописи",
         "nav_spells": "Тексты",
         "nav_categories": "Категории",
+        "nav_bibliography": "Библиография",
 
         "manuscripts": "Рукописи",
         "spells": "Тексты",
@@ -67,6 +68,8 @@ TRANSLATIONS = {
         "translation_en": "English",
         "note": "Примечание",
         "text_bibliography": "Библиография текста",
+        "bibliography_abbr": "Сокращение",
+        "bibliography_citation": "Библиографическое описание",
     },
 
     "en": {
@@ -75,6 +78,7 @@ TRANSLATIONS = {
         "nav_manuscripts": "Manuscripts",
         "nav_spells": "Texts",
         "nav_categories": "Categories",
+        "nav_bibliography": "Bibliography",
 
         "manuscripts": "Manuscripts",
         "spells": "Texts",
@@ -137,6 +141,8 @@ TRANSLATIONS = {
         "translation_en": "English",
         "note": "Note",
         "text_bibliography": "Text bibliography",
+        "bibliography_abbr": "Abbreviation",
+        "bibliography_citation": "Bibliographic reference",
     },
 }
 
