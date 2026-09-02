@@ -895,7 +895,9 @@ footer {
 
 #bibliography-table .bibliography-abbr {
     font-weight: 600;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: normal;
 }
 
 #bibliography-table td:last-child {
