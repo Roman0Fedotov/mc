@@ -16,15 +16,33 @@ TABLES = [
     "bibliography",
 ]
 
+def detect_delimiter(sample: str) -> str:
+    first_line = sample.splitlines()[0] if sample else ""
+
+    if ";" in first_line:
+        return ";"
+
+    if "," in first_line:
+        return ","
+
+    raise ValueError("Could not detect CSV delimiter from header row")
+
 def csv_to_json(name: str) -> None:
     csv_path = DATA_DIR / f"{name}.csv"
     json_path = OUT_DIR / f"{name}.json"
 
     with open(csv_path, "r", encoding="utf-8-sig", newline="") as f:
-        reader = csv.DictReader(f, delimiter=";")
+        sample = f.read(4096)
+        f.seek(0)
+
+        delimiter = detect_delimiter(sample)
+        reader = csv.DictReader(f, delimiter=delimiter)
         rows = list(reader)
 
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(rows, f, ensure_ascii=False, indent=2)
 
-    print(f"✔ {name}.json created")
+    print(f"✔ {name}.json created (delimiter='{delimiter}')")
+
+for t in TABLES:
+    csv_to_json(t)
