@@ -111,7 +111,7 @@ def get_ms_shelfmark(ms: dict) -> str:
 
 
 def get_ms_location(ms: dict, lang: str) -> str:
-    return first_non_empty(ms.get(f"location_{lang}"), ms.get("location"))
+    return _clean(ms.get(f"location_{lang}"))
 
 
 def get_ms_format(ms: dict, lang: str) -> str:

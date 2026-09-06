@@ -31,12 +31,21 @@ def validate_data(manuscripts, spells, categories, spell_categories):
     sp_set = set(i for i in sp_ids if i)
     cat_set = set(i for i in cat_ids if i)
 
+# manuscripts: required fields
     for ms in manuscripts:
         mid = ms.get("id")
-        siglum = (ms.get("siglum") or "").strip()
 
-    if not siglum:
-        errors.append(f"Manuscript {mid} has no siglum")
+        siglum = (ms.get("siglum") or "").strip()
+        if not siglum:
+            errors.append(f"Manuscript {mid} has no siglum")
+
+        location_ru = (ms.get("location_ru") or "").strip()
+        if not location_ru:
+            errors.append(f"Manuscript {mid} has no location_ru")
+
+        location_en = (ms.get("location_en") or "").strip()
+        if not location_en:
+            errors.append(f"Manuscript {mid} has no location_en")
 
     # spells -> manuscripts
     for sp in spells:
