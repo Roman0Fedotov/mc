@@ -41,7 +41,10 @@ def load_all():
     spell_categories = _load_json("spell_categories")
 
     # --- safety: filter bad rows (prevents KeyError) ---
-    manuscripts = [m for m in manuscripts if isinstance(m, dict) and m.get("id") and m.get("title")]
+    manuscripts = [
+    m for m in manuscripts
+    if isinstance(m, dict) and m.get("id")
+    ]
     spells = [s for s in spells if isinstance(s, dict) and s.get("id") and s.get("manuscript_id")]
     categories = [c for c in categories if isinstance(c, dict) and c.get("id")]
     spell_categories = [
@@ -51,8 +54,8 @@ def load_all():
 
     # --- UX: sort manuscripts by siglum ---
     manuscripts.sort(key=lambda m: (
-        (m.get("siglum") or m.get("title") or "").lower(),
-        m.get("id") or "",
+    (m.get("siglum") or "").lower(),
+    m.get("id") or "",
     ))
 
     # --- safety: warn on duplicate manuscript ids ---

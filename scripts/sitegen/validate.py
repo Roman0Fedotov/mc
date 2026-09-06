@@ -31,6 +31,13 @@ def validate_data(manuscripts, spells, categories, spell_categories):
     sp_set = set(i for i in sp_ids if i)
     cat_set = set(i for i in cat_ids if i)
 
+    for ms in manuscripts:
+        mid = ms.get("id")
+        siglum = (ms.get("siglum") or "").strip()
+
+    if not siglum:
+        errors.append(f"Manuscript {mid} has no siglum")
+
     # spells -> manuscripts
     for sp in spells:
         sid = sp.get("id")

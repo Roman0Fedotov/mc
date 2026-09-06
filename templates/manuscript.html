@@ -3,9 +3,7 @@
 
 {{ breadcrumbs | safe }}
 
-<h2>{{ ms.title_display }}</h2>
-
-<p><strong>{{ t('siglum') }}:</strong> {{ ms.siglum }}</p>
+<h2>{{ ms.siglum_display }}</h2>
 
 {% if ms.location_display %}
 <p><strong>{{ t('location') }}:</strong> {{ ms.location_display }}</p>

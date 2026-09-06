@@ -95,14 +95,9 @@ def alpha_letter_spell(text: str, lang: str) -> str:
 
 # ---------- manuscripts ----------
 
-def get_ms_title(ms: dict) -> str:
-    return first_non_empty(ms.get("title"), ms.get("id"))
-
-
 def get_ms_siglum(ms: dict) -> str:
     return first_non_empty(
         ms.get("siglum"),
-        ms.get("title"),
         ms.get("id"),
     )
 
@@ -247,7 +242,6 @@ def prepare_full_text(full_text: dict, lang: str):
 def prepare_manuscript(ms: dict, lang: str) -> dict:
     item = dict(ms)
 
-    item["title_display"] = get_ms_title(ms)
     item["siglum_display"] = get_ms_siglum(ms)
     item["location_display"] = get_ms_location(ms, lang)
     item["collection_display"] = get_ms_collection(ms)
@@ -297,7 +291,7 @@ def build_manuscripts(site_dir: Path, tpl_ms, manuscripts, spells_by_ms_id, lang
         breadcrumbs = render_breadcrumbs([
             (tr(lang, "home"), "/index.html"),
             (tr(lang, "manuscripts"), "/index.html"),
-            (ms_view["title_display"], None),
+            (ms_view["siglum_display"], None),
         ], lang)
 
         related_spells = []
@@ -310,7 +304,7 @@ def build_manuscripts(site_dir: Path, tpl_ms, manuscripts, spells_by_ms_id, lang
             })
 
         html_out = tpl_ms.render(
-            title=ms_view["title_display"] or tr(lang, "manuscript"),
+            title=ms_view["siglum_display"] or tr(lang, "manuscript"),
             ms=ms_view,
             related_spells=related_spells,
             breadcrumbs=breadcrumbs,
