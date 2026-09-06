@@ -47,6 +47,14 @@ def validate_data(manuscripts, spells, categories, spell_categories):
         if not location_en:
             errors.append(f"Manuscript {mid} has no location_en")
 
+        collection_ru = (ms.get("collection_ru") or "").strip()
+        if not collection_ru:
+            errors.append(f"Manuscript {mid} has no collection_ru")
+
+        collection_en = (ms.get("collection_en") or "").strip()
+        if not collection_en:
+            errors.append(f"Manuscript {mid} has no collection_en")
+
     # spells -> manuscripts
     for sp in spells:
         sid = sp.get("id")

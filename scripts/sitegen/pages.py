@@ -102,8 +102,8 @@ def get_ms_siglum(ms: dict) -> str:
     )
 
 
-def get_ms_collection(ms: dict) -> str:
-    return first_non_empty(ms.get("collection"))
+def get_ms_collection(ms: dict, lang: str) -> str:
+    return _clean(ms.get(f"collection_{lang}"))
 
 
 def get_ms_shelfmark(ms: dict) -> str:
@@ -244,7 +244,7 @@ def prepare_manuscript(ms: dict, lang: str) -> dict:
 
     item["siglum_display"] = get_ms_siglum(ms)
     item["location_display"] = get_ms_location(ms, lang)
-    item["collection_display"] = get_ms_collection(ms)
+    item["collection_display"] = get_ms_collection(ms, lang)
     item["shelfmark_display"] = get_ms_shelfmark(ms)
     item["format_display"] = get_ms_format(ms, lang)
     item["bibliography_display"] = get_ms_bibliography(ms, lang)
