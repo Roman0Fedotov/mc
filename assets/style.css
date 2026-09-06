@@ -347,7 +347,7 @@ footer {
     }
 }
 
-/* === Spells pagination controls === */
+/* === List pagination controls === */
 .list-controls {
     display: flex;
     flex-wrap: wrap;
