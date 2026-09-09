@@ -113,9 +113,12 @@ def get_ms_shelfmark(ms: dict) -> str:
 def get_ms_location(ms: dict, lang: str) -> str:
     return _clean(ms.get(f"location_{lang}"))
 
+def get_ms_lang_field(ms: dict, field: str, lang: str) -> str:
+    return _clean(ms.get(f"{field}_{lang}"))
+
 
 def get_ms_format(ms: dict, lang: str) -> str:
-    return first_non_empty(ms.get(f"format_{lang}"), ms.get("format"))
+    return _clean(ms.get(f"format_{lang}"))
 
 
 def get_ms_bibliography(ms: dict, lang: str) -> str:
@@ -247,11 +250,36 @@ def prepare_manuscript(ms: dict, lang: str) -> dict:
     item["collection_display"] = get_ms_collection(ms, lang)
     item["shelfmark_display"] = get_ms_shelfmark(ms)
     item["format_display"] = get_ms_format(ms, lang)
+
+    item["acquisition_notes_display"] = get_ms_lang_field(
+        ms, "acquisition_notes", lang
+    )
+    item["script_display"] = get_ms_lang_field(
+        ms, "script", lang
+    )
+    item["vocalization_display"] = get_ms_lang_field(
+        ms, "vocalization", lang
+    )
+    item["provenance_display"] = get_ms_lang_field(
+        ms, "provenance", lang
+    )
+    item["scribe_display"] = get_ms_lang_field(
+        ms, "scribe", lang
+    )
+    item["client_owner_display"] = get_ms_lang_field(
+        ms, "client_owner", lang
+    )
+    item["colophon_display"] = get_ms_lang_field(
+        ms, "colophon", lang
+    )
+
+    item["note_display"] = get_ms_lang_field(
+    ms, "note", lang
+    )
+
     item["bibliography_display"] = get_ms_bibliography(ms, lang)
     item["texts_count_display"] = get_ms_texts_count(ms)
 
-    # Алфавитный фильтр на странице рукописей должен
-    # соответствовать первой видимой колонке — Siglum.
     item["alpha_letter"] = alpha_letter_en(item["siglum_display"])
 
     return item

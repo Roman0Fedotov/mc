@@ -5,40 +5,207 @@
 
 <h2>{{ ms.siglum_display }}</h2>
 
+
+
 {% if ms.location_display %}
-<p><strong>{{ t('location') }}:</strong> {{ ms.location_display }}</p>
+<p>
+  <strong>{{ t('location') }}:</strong>
+  {{ ms.location_display }}
+</p>
 {% endif %}
 
-<p><strong>{{ t('date') }}:</strong> {{ ms.date }}</p>
+{% if ms.collection_display %}
+<p>
+  <strong>{{ t('collection') }}:</strong>
+  {{ ms.collection_display }}
+</p>
+{% endif %}
+
+{% if ms.shelfmark_display %}
+<p>
+  <strong>{{ t('shelfmark') }}:</strong>
+  {{ ms.shelfmark_display }}
+</p>
+{% endif %}
+
+{% if ms.acquisition_notes_display %}
+<p>
+  <strong>{{ t('acquisition_notes') }}:</strong>
+  {{ ms.acquisition_notes_display }}
+</p>
+{% endif %}
 
 {% if ms.format_display %}
-<p><strong>{{ t('format') }}:</strong> {{ ms.format_display }}</p>
+<p>
+  <strong>{{ t('format') }}:</strong>
+  {{ ms.format_display }}
+</p>
+{% endif %}
+
+{% if ms.folios %}
+<p>
+  <strong>{{ t('folios') }}:</strong>
+  {{ ms.folios }}
+</p>
+{% endif %}
+
+{% if ms.dimensions %}
+<p>
+  <strong>{{ t('dimensions') }}:</strong>
+  {{ ms.dimensions }}
+</p>
+{% endif %}
+
+{% if ms.script_display %}
+<p>
+  <strong>{{ t('script') }}:</strong>
+  {{ ms.script_display }}
+</p>
+{% endif %}
+
+{% if ms.vocalization_display %}
+<p>
+  <strong>{{ t('vocalization') }}:</strong>
+  {{ ms.vocalization_display }}
+</p>
+{% endif %}
+
+{% if ms.date %}
+<p>
+  <strong>{{ t('date') }}:</strong>
+  {{ ms.date }}
+</p>
+{% endif %}
+
+{% if ms.provenance_display %}
+<p>
+  <strong>{{ t('provenance') }}:</strong>
+  {{ ms.provenance_display }}
+</p>
+{% endif %}
+
+{% if ms.scribe_display %}
+<p>
+  <strong>{{ t('scribe') }}:</strong>
+  {{ ms.scribe_display }}
+</p>
+{% endif %}
+
+{% if ms.client_owner_display %}
+<p>
+  <strong>{{ t('client_owner') }}:</strong>
+  {{ ms.client_owner_display }}
+</p>
 {% endif %}
 
 {% if ms.texts_count_display %}
-<p><strong>{{ t('texts_count') }}:</strong> {{ ms.texts_count_display }}</p>
+<p>
+  <strong>{{ t('texts_count') }}:</strong>
+  {{ ms.texts_count_display }}
+</p>
 {% endif %}
+
+
+
+{% if ms.colophon_syr or ms.colophon_display %}
+<h3>{{ t('colophon') }}</h3>
+
+{% if ms.colophon_syr %}
+<div
+  class="syriac-text syriac-block"
+  dir="rtl"
+  lang="syr-Syrn"
+>
+  {{ ms.colophon_syr }}
+</div>
+{% endif %}
+
+{% if ms.colophon_display %}
+<p>{{ ms.colophon_display }}</p>
+{% endif %}
+
+{% endif %}
+
+
+
+{% if ms.publication %}
+<h3>{{ t('publication') }}</h3>
+<p>{{ ms.publication }}</p>
+{% endif %}
+
+{% if ms.online_catalogue_url %}
+<p>
+  <strong>{{ t('online_catalogue') }}:</strong>
+  <a
+    href="{{ ms.online_catalogue_url }}"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {{ ms.online_catalogue_url }}
+  </a>
+</p>
+{% endif %}
+
+{% if ms.digital_copy_url %}
+<p>
+  <strong>{{ t('digital_copy') }}:</strong>
+  <a
+    href="{{ ms.digital_copy_url }}"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {{ ms.digital_copy_url }}
+  </a>
+</p>
+{% endif %}
+
+
+
+{% if ms.note_display %}
+<h3>{{ t('notes') }}</h3>
+<p>{{ ms.note_display }}</p>
+{% endif %}
+
+
 
 {% if ms.bibliography_display %}
 <h3>{{ t('bibliography') }}</h3>
 <p>{{ ms.bibliography_display }}</p>
 {% endif %}
 
+
+
 <h3>{{ t('spells') }}</h3>
+
 {% if related_spells %}
-  <ul>
-    {% for sp in related_spells %}
-      <li>
-        <a href="{{ lang_root('/spells/' ~ sp.id ~ '.html') }}">{{ sp.title_display }}</a>
-        ({{ sp.page }})
-      </li>
-    {% endfor %}
-  </ul>
+<ul>
+  {% for sp in related_spells %}
+  <li>
+    <a href="{{ lang_root('/spells/' ~ sp.id ~ '.html') }}">
+      {{ sp.title_display }}
+    </a>
+    {% if sp.page %}
+      ({{ sp.page }})
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
 {% else %}
-  <p>{{ t('no_spells_recorded') }}</p>
+<p>{{ t('no_spells_recorded') }}</p>
 {% endif %}
 
-<p><a href="{{ lang_root('/index.html') }}">&#8592; {{ t('back_to_manuscripts')|replace('← ', '') }}</a></p>
-<p><a href="{{ lang_root('/spells/index.html') }}">&#8592; {{ t('back_to_spells')|replace('← ', '') }}</a></p>
+
+
+<p>
+  <a href="{{ lang_root('/index.html') }}">
+    &#8592; {{ t('back_to_manuscripts')|replace('← ', '') }}
+  </a>
+</p>
+
+<p>
+  <a href="{{ lang_root('/spells/index.html') }}">
+    &#8592; {{ t('back_to_spells')|replace('← ', '') }}
+  </a>
+</p>
 
 {% endblock %}
