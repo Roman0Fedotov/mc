@@ -31,13 +31,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Checkout private text data
-        uses: actions/checkout@v4
-        with:
-          repository: roman0fedotov/mc-data-private
-          path: private-data
-          token: ${{ secrets.MC_DATA_PAT }}
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -56,14 +49,17 @@ jobs:
       - name: Convert CSV to JSON
         run: python scripts/build_data.py
 
-      - name: Validate private text JSON
-        run: python scripts/validate_texts.py --texts-dir private-data/texts --strict
+      - name: Build full texts from Google Sheets
+        run: python scripts/build_sheet_texts.py
+
+      - name: Validate generated full texts
+        run: python scripts/validate_texts.py --texts-dir build/texts --strict
 
       - name: Build HTML site
         env:
           BASE_PATH: "mc"
           CACHE_BUST: ${{ github.sha }}
-          PRIVATE_TEXTS_DIR: "private-data/texts"
+          PRIVATE_TEXTS_DIR: "build/texts"
         run: python scripts/build_site.py --clean --strict
 
       - name: Ensure private JSON files are not published

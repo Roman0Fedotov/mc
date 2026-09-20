@@ -16,6 +16,12 @@ TABLES = [
     "bibliography",
 ]
 
+FULL_TEXT_FIELDS = {
+    "text_ru",
+    "text_syr",
+    "text_en",
+}
+
 def detect_delimiter(sample: str) -> str:
     first_line = sample.splitlines()[0] if sample else ""
 
@@ -39,8 +45,20 @@ def csv_to_json(name: str) -> None:
         reader = csv.DictReader(f, delimiter=delimiter)
         rows = list(reader)
 
+    if name == "spells":
+        rows_to_write = [
+            {
+                key: value
+                for key, value in row.items()
+                if key and key not in FULL_TEXT_FIELDS
+            }
+            for row in rows
+        ]
+    else:
+        rows_to_write = rows        
+
     with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(rows, f, ensure_ascii=False, indent=2)
+        json.dump(rows_to_write, f, ensure_ascii=False, indent=2)
 
     print(f"✔ {name}.json created (delimiter='{delimiter}')")
 
