@@ -38,6 +38,7 @@ def validate_text_file(path: Path):
         lines = []
 
     seen_numbers = set()
+    missing_translation_lines = []
 
     for index, line in enumerate(lines, start=1):
         prefix = f"{path}: lines[{index}]"
@@ -68,7 +69,19 @@ def validate_text_file(path: Path):
         has_en = bool(_clean(translation.get("en")))
 
         if not has_ru and not has_en:
-            errors.append(f"{prefix}: at least one translation is required")
+            missing_translation_lines.append(index)
+
+    if missing_translation_lines:
+        first = ", ".join(
+            str(n) for n in missing_translation_lines[:10]
+        )
+        suffix = "..." if len(missing_translation_lines) > 10 else ""
+
+        warnings.append(
+            f"{path}: {len(missing_translation_lines)} line(s) "
+            f"have no RU or EN translation yet "
+            f"(lines: {first}{suffix})"
+        )
 
     bibliography = data.get("bibliography", [])
 

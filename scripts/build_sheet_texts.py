@@ -75,26 +75,29 @@ def make_text(row: dict, row_number: int):
 
     line_count = len(syr_lines)
 
-    # Если перевод существует, число строк должно совпадать
-    if ru_lines and len(ru_lines) != line_count:
-        raise ValueError(
-            f"{spell_id}: line count mismatch: "
-            f"text_syr={line_count}, text_ru={len(ru_lines)}"
+    # Перевод может быть неполным, если работа над ним ещё идёт.
+    # Более длинный перевод — ошибка выравнивания.
+    # Более короткий перевод дополняем пустыми строками в конце.
+    for field_name, translation_lines in (
+        ("text_ru", ru_lines),
+        ("text_en", en_lines),
+    ):
+        if len(translation_lines) > line_count:
+            raise ValueError(
+                f"{spell_id}: line count mismatch: "
+                f"text_syr={line_count}, {field_name}={len(translation_lines)}"
+            )
+
+        if translation_lines and len(translation_lines) < line_count:
+            print(
+                f"WARNING: {spell_id}: {field_name} has "
+                f"{len(translation_lines)} lines, text_syr has {line_count}; "
+                "missing trailing translations will be left empty"
+            )
+
+        translation_lines.extend(
+            [""] * (line_count - len(translation_lines))
         )
-
-    if en_lines and len(en_lines) != line_count:
-        raise ValueError(
-            f"{spell_id}: line count mismatch: "
-            f"text_syr={line_count}, text_en={len(en_lines)}"
-        )
-
-    # Полностью отсутствующий язык превращаем
-    # в пустые значения нужной длины
-    if not ru_lines:
-        ru_lines = [""] * line_count
-
-    if not en_lines:
-        en_lines = [""] * line_count
 
     lines = []
 
@@ -106,13 +109,6 @@ def make_text(row: dict, row_number: int):
         if not syr:
             raise ValueError(
                 f"{spell_id}: empty Syriac line {i + 1}"
-            )
-
-        # Сохраняем нынешнее правило проекта:
-        # должен существовать хотя бы один перевод
-        if not ru and not en:
-            raise ValueError(
-                f"{spell_id}: line {i + 1} has no RU or EN translation"
             )
 
         lines.append({
